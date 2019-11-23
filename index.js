@@ -1,49 +1,15 @@
 var express = require("express");
 var app = express();
-app.use(express.static("public"));
+var userRouter = require('./routes/user');
+var path = require('path');
+// var adminRouter = require('./routes/admin');
+
 app.set("view engine","ejs");
 app.set("views","./views");
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(3000);
-var mysql = require('mysql');
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "12345",
-    database: "shopshoe"
-});
+app.use('/', userRouter);
 
+app.listen(process.env.PORT || 3000);
 
-app.get("/",function(req,res){
-         var sql = "SELECT * FROM shoe ";
-        con.query(sql, function(err, results) {
-        if (err) res.end();
-        console.log(results);
-        res.render("index",{data:results});
-        })    
-})
-
-app.get("/index.html",function(req,res){
-    var sql = "SELECT * FROM shoe ";
-   con.query(sql, function(err, results) {
-   if (err) res.end();
-   console.log(results);
-   res.render("index",{data:results});
-   })    
-})
-
-app.get("/category.html",function(req,res){
-    var sql = "SELECT * FROM shoe ";
-    con.query(sql, function(err, results) {
-    if (err) res.end();
-    console.log(results);
-    res.render("category",{data:results});
-})})
-
-app.get("/chitiet:id",function(req,res){
-    var sql = "SELECT * FROM shoe WHERE magiay=" + req.params.id ;
-    con.query(sql, function(err, results) {
-    if (err) res.end();
-    console.log(results);
-    res.render("single-product",{data:results});
-})})
+module.exports = app;
