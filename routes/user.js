@@ -46,4 +46,37 @@ router.get("/chitiet:id",function(req,res){
     res.render("single-product",{data:results});
 })})
 
+router.get('/registration.html', function(req, res, next) {
+  res.render('registration');
+});
+
+router.get('/blog.html', function(req, res, next) {
+  res.render('blog');
+});
+
+router.get('/cart.html', function(req, res, next) {
+  res.render('cart');
+});
+
+router.get('/checkout.html', function(req, res, next) {
+  res.render('checkout');
+});
+
+router.get('/contact.html', function(req, res, next) {
+  res.render('contact');
+});
+
+router.get('/forgetPassword.html', function(req, res, next) {
+  res.render('forgetPassword');
+});
+
+router.get('/login.html', function(req, res, next) {
+  res.render('login');
+});
+
+router.get('/confirmation.html', function(req, res, next) {
+  res.render('confirmation');
+});
+
+
 module.exports = router;
