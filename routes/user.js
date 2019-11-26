@@ -1,82 +1,32 @@
 var express = require('express');
-
 var router = express.Router();
-
-var mysql = require('mysql');
-var con = mysql.createConnection({
-    host: "db4free.net",
-    port: "3306",
-    user: "nodejsacc1",
-    password: "passwordne123",
-    database: "shopshoe"
-});
+var con = require('../db');
+var controller = require('../controllers/controller');
 
 
-router.get("/",function(req,res){
-         var sql = "SELECT * FROM shoe ";
-        con.query(sql, function(err, results) {
-        if (err) res.end();
-        console.log(results);
-        res.render("index",{data:results});
-        })    
-})
+router.get("/", controller.getRoot);
 
-router.get("/index.html",function(req,res){
-    var sql = "SELECT * FROM shoe ";
-   con.query(sql, function(err, results) {
-   if (err) res.end();
-   console.log(results);
-   res.render("index",{data:results});
-   })    
-})
+router.get("/index.html", controller.getRoot);
 
-router.get("/category.html",function(req,res){
-    var sql = "SELECT * FROM shoe ";
-    con.query(sql, function(err, results) {
-    if (err) res.end();
-    console.log(results);
-    res.render("category",{data:results});
-})})
+router.get("/category.html", controller.getCategory);
 
-router.get("/chitiet:id",function(req,res){
-    var sql = "SELECT * FROM shoe WHERE magiay=" + req.params.id ;
-    con.query(sql, function(err, results) {
-    if (err) res.end();
-    console.log(results);
-    res.render("single-product",{data:results});
-})})
+router.get("/chitiet:id", controller.getChiTiet);
 
-router.get('/registration.html', function(req, res, next) {
-  res.render('registration');
-});
+router.get('/registration.html', controller.getRegis);
 
-router.get('/blog.html', function(req, res, next) {
-  res.render('blog');
-});
+router.get('/blog.html', controller.getBlog);
 
-router.get('/cart.html', function(req, res, next) {
-  res.render('cart');
-});
+router.get('/cart.html', controller.getCart);
 
-router.get('/checkout.html', function(req, res, next) {
-  res.render('checkout');
-});
+router.get('/checkout.html', controller.getCheckout);
 
-router.get('/contact.html', function(req, res, next) {
-  res.render('contact');
-});
+router.get('/contact.html', controller.getContact);
 
-router.get('/forgetPassword.html', function(req, res, next) {
-  res.render('forgetPassword');
-});
+router.get('/forgetPassword.html', controller.getForgetPassword);
 
-router.get('/login.html', function(req, res, next) {
-  res.render('login');
-});
+router.get('/login.html', controller.getLogin);
 
-router.get('/confirmation.html', function(req, res, next) {
-  res.render('confirmation');
-});
+router.get('/confirmation.html', controller.getConfirmation);
 
 
 module.exports = router;
