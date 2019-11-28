@@ -1,5 +1,5 @@
 var con = require('../db');
-
+console.log(con.database);
 module.exports.getRoot = function(req,res){
          var sql = "SELECT * FROM shoe ";
         con.query(sql, function(err, results) {

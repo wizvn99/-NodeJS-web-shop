@@ -1,0 +1,99 @@
+<%- include('header'); -%>
+<div class="panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">Tất cả tài khoản</h3>
+		<div class="right">
+			<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+			<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+		</div>
+	</div>
+	<div class="panel-body no-padding">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Mã tài khoản</th>
+					<th>Tên khoản</th>
+					<th>Ngày tạo tài khoản</th>
+					<th>Tình trạng</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><a href="profile">763648</a></td>
+					<td>Steven Havard</td>
+					<td>Oct 21, 2016</td>
+					<td><span class="label label-success">Đang hoạt động</span></td>
+					<td><a href="profile">Sửa</a></td>
+				</tr>
+				<tr>
+					<td><a href="profile">763649</a></td>
+					<td>Amber</td>
+					<td>Oct 21, 2016</td>
+					<td><span class="label label-warning">Hoạt động 30 ngày trước</span></td>
+					<td><a href="profile">Sửa</a></td>
+				</tr>
+				<tr>
+					<td><a href="profile">763650</a></td>
+					<td>Michael</td>
+					<td>Oct 18, 2016</td>
+					<td><span class="label label-danger">Đã bị ban</span></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><a href="profile">763651</a></td>
+					<td>Roger</td>
+					<td>Oct 17, 2016</td>
+					<td><span class="label label-success">Đã giao</span></td>
+					<td><a href="profile">Sửa</a></td>
+				</tr>
+				<tr>
+					<td><a href="profile">763652</a></td>
+					<td>Smith</td>
+					<td>Oct 16, 2016</td>
+					<td><span class="label label-success">Đã giao</span></td>
+					<td><a href="profile">Sửa</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-footer">
+		<div class="row">
+			<div class="col-md-6"><span class="panel-note"></span></div>
+			<div class="col-md-6 text-right"><a href="profile" class="btn btn-primary">Xem tất cả tài khoản</a></div>
+		</div>
+	</div>
+</div>
+<div class="panel-heading">
+	<h3 class="panel-title">Hoạt động mọi người dùng gần đây</h3>
+	<div class="right">
+		<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+		<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+	</div>
+</div>
+<div class="panel-body">
+	<ul class="list-unstyled activity-list">
+		<li>
+			<img src="images/user1.png" alt="Avatar" class="img-circle pull-left avatar">
+			<p><a href="profile">Michael</a> đã bình luận về một bài post thuê nhà <span class="timestamp">20 phút trước</span></p>
+		</li>
+		<li>
+			<img src="images/user2.png" alt="Avatar" class="img-circle pull-left avatar">
+			<p><a href="profile">Daniel</a> đã thêm <a href="profile">Nhà cấp 3</a> vào giỏ hàng  <span class="timestamp">30 phút trước</span></p>
+		</li>
+		<li>
+			<img src="images/user3.png" alt="Avatar" class="img-circle pull-left avatar">
+			<p><a href="profile">Martha</a> đã truy cập <a href="profile">Landing Page</a> <span class="timestamp">2 ngày trước</span></p>
+		</li>
+		<li>
+			<img src="images/user4.png" alt="Avatar" class="img-circle pull-left avatar">
+			<p><a href="profile">Jane</a> đã rao bán một căn hộ <span class="timestamp">2 ngày trước</span></p>
+		</li>
+		<li>
+			<img src="images/user5.png" alt="Avatar" class="img-circle pull-left avatar">
+			<p><a href="profile">Jason</a> đã tạo cuộc thảo luận  <a href="profile">Weekly Meeting</a> <span class="timestamp">3 ngày trước</span></p>
+		</li>
+	</ul>
+	<button type="button" class="btn btn-primary btn-bottom center-block">Thêm</button>
+</div>
+<%- include('footer'); -%>
