@@ -1,20 +1,58 @@
-// var mysql = require('mysql');
-// var con = mysql.createConnection({
-//     host: "db4free.net",
-//     port: "3306",
-//     user: "nodejsacc1",
-//     password: "passwordne123",
-//     database: "shopshoe"
-// });
-// module.exports = con;
+var mysql = require('mysql');
 
-module.exports = {
-	'connection':{
-		'host':'db4free.net',
-		'port': '3306',
-    	'user': 'nodejsacc1',
-   		'password': 'passwordne123'
-	},
-	'database': 'shopshoe',
-	'user_table':'adminUsers'
+module.exports.load = sql => {
+    return new Promise((resolve, reject) => {
+        var cn = mysql.createConnection({
+		    host: "db4free.net",
+		    port: "3306",
+		    user: "nodejsacc1",
+		    password: "passwordne123",
+		    database: "shopshoe"
+		});
+
+        cn.connect();
+
+        cn.query(sql, function(error, rows, fields) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(rows);
+            }
+
+            cn.end();
+        });
+    });
 }
+
+module.exports.save = sql => {
+    return new Promise((resolve, reject) => {
+        var cn = mysql.createConnection({
+		    host: "db4free.net",
+		    port: "3306",
+		    user: "nodejsacc1",
+		    password: "passwordne123",
+		    database: "shopshoe"
+		});
+
+        cn.connect();
+
+        cn.query(sql, function(error, value) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(value);
+            }
+
+            cn.end();
+        });
+    });
+}
+
+// var cn = mysql.createConnection({
+// 		    host: "db4free.net",
+// 		    port: "3306",
+// 		    user: "nodejsacc1",
+// 		    password: "passwordne123",
+// 		    database: "shopshoe"
+// 		});
+// module.exports.create = cn;

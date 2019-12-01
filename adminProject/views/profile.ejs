@@ -8,7 +8,7 @@
 				<div class="overlay"></div>
 				<div class="profile-main">
 					<img src="images/user-medium.png" class="img-circle" alt="Avatar">
-					<h3 class="name"><%= user.password %></h3>
+					<h3 class="name"><%= user.name %></h3>
 					<span class="online-status status-available">Available</span>
 				</div>
 				<div class="profile-stat">
@@ -31,9 +31,9 @@
 				<div class="profile-info">
 					<h4 class="heading">Thông tin cơ bản</h4>
 					<ul class="list-unstyled list-justify">
-						<li>Sinh nhật <span><%= user.id %></span></li>
-						<li>Mobile <span>(124) 0868459091</span></li>
+						<li>Id <span><%= user.id %></span></li>
 						<li>Email <span><%= user.email %></span></li>
+						<li>Mobile <span><%= user.tel %></span></li>
 						<li>Website <span><a href="">Chạm vào đây</a></span></li>
 					</ul>
 				</div>
@@ -220,4 +220,4 @@
 		<!-- END RIGHT COLUMN -->
 	</div>
 </div>
-<%- include('header'); -%>
+<%- include('footer'); -%>
