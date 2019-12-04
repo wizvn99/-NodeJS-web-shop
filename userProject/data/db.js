@@ -7,7 +7,7 @@ module.exports.load = sql => {
 		    port: "3306",
 		    user: "nodejsacc1",
 		    password: "passwordne123",
-		    database: "shopshoe"
+            database: "shopshoe"
 		});
 
         cn.connect();
@@ -31,7 +31,7 @@ module.exports.save = sql => {
 		    port: "3306",
 		    user: "nodejsacc1",
 		    password: "passwordne123",
-		    database: "shopshoe"
+            database: "shopshoe"
 		});
 
         cn.connect();

@@ -1,8 +1,9 @@
+
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcrypt-nodejs');
 const accountRepo = require('../controller/accountRepo');
-
-module.exports = function(passport) {
+module.exports = function(passport) 
+{
 	passport.serializeUser(function(user, done){
 		done(null, user.id);
 	});
@@ -67,4 +68,4 @@ module.exports = function(passport) {
 			});
 		})
 	);
-}
+};
