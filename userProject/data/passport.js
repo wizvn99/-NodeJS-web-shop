@@ -1,10 +1,5 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcrypt-nodejs');
-
-// const cn = require('./db');
-// con = cn.create
-// con.query('USE shopshoe');
-
 const accountRepo = require('../controller/accountRepo');
 
 module.exports = function(passport) {
@@ -19,10 +14,6 @@ module.exports = function(passport) {
 		console.log(err);
 		done(err);
 		});
-	// con.query("SELECT * FROM adminUsers WHERE id = ? ", [id],
-	// 	function(err, rows){
-	// 		done(err, rows[0]);
-	// 	});
 	});
 	passport.use('local-signup', new LocalStrategy({
 		usernameField : 'email', passwordField : 'password', passReqToCallback : true}, 
@@ -47,13 +38,6 @@ module.exports = function(passport) {
 						newUserMysql.id = rows.insertId;
 						return done(null, newUserMysql);
 					});
-					//const insertQuery = "INSERT INTO adminUsers (email, password) values (?, ?)";
-					// con.query(insertQuery, [newUserMysql.email, newUserMysql.password],
-					// 	function(err, rows){
-					// 		newUserMysql.id = rows.insertId;
-					// 		console.log(rows);
-					// 		return done(null, newUserMysql);
-					// });
 				}
 			})
 			.catch(function(err){

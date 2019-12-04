@@ -56,31 +56,28 @@
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Đăng ký</h2>
-                        <form method="POST" class="" id="register-form">
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your Name"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Your Email"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="pass" id="pass" placeholder="Password"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>Tôi đồng ý với tất cả điều khoản</label>
-                            </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
-                            </div>
-                        </form>
+                        <form class="form-auth-small" action="/registration" method="post">
+								<div class="form-group">
+									<label for="signin-email" class="control-label sr-only">Email</label>
+									<input type="email" class="form-control" id="signin-email" name="email" placeholder="Email">
+								</div>
+								<div class="form-group">
+									<label for="signin-password" class="control-label sr-only">Mật khẩu</label>
+									<input type="password" class="form-control" id="signin-password" name="password" placeholder="Mật khẩu">
+								</div>
+								<div class="form-group">
+									<label for="signin-name" class="control-label sr-only">Tên hiển thị</label>
+									<input type="text" class="form-control" id="signin-name" name="name" placeholder="Tên hiển thị">
+								</div>
+								<div class="form-group">
+									<label for="signin-tel" class="control-label sr-only">Số điện thoại</label>
+									<input type="number" class="form-control" id="signin-tel" name="tel" placeholder="Số điện thoại">
+								</div>
+								<button type="submit" class="btn btn-primary btn-lg btn-block">ĐĂNG KÝ</button>
+								<div class="bottom">
+									<p>Đã có tài khoản <a href="/signup">Đăng nhập</a></p>
+								</div>
+							</form>
                     </div>
                     </div>
                 </div>
