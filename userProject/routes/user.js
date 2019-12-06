@@ -1,152 +1,45 @@
-var dataconfig = require('../data/db');
-var con = dataconfig.create;
+var authControl = require('../controllers/authentication');
+
 
 module.exports = function(router, passport){
-	router.get("/", function getRoot(req,res, next){
-	         var sql = "SELECT * FROM shoe ";
-	        con.query(sql, function(err, results) {
-		        if (err) res.end();
-		        if(req.isAuthenticated())
-		        {
-		        	res.render("index",{ data:results, user:req.user, logged: true });
-		        }else{
-		        	res.render("index",{data:results , logged: false });
-		        }
-	        });
-		}
-	);
+	router.get("/", function(req, res, next){ authControl.getRoot(req, res, next) });
 
-	router.get("/index.html", function getRoot(req,res, next){
-	         var sql = "SELECT * FROM shoe ";
-	        con.query(sql, function(err, results) {
-		        if (err) res.end();
-		        if(req.isAuthenticated())
-		        {
-		        	res.render("index",{ data:results, user:req.user, logged: true });
-		        }else{
-		        	res.render("index",{data:results , logged: false });
-		        }
-	        });
-		}
-	);
-	router.get("/category.html", function(req,res, next){
-	    var sql = "SELECT * FROM shoe ";
-	    con.query(sql, function(err, results) {
-		    if (err) res.end();
-		    console.log(results);
-		    if(req.isAuthenticated()){
-		    	res.render("category",{data:results, user:req.user, logged: true  });
-		    }else{
-		    	res.render("category",{data:results, logged: false  });
-		    }
-		});
-	});
+	router.get("/index", function(req, res, next){ authControl.getRoot(req, res, next) });
 
-	router.get("/chitiet:id", function(req,res, next){
-	    var sql = "SELECT * FROM shoe WHERE magiay=" + req.params.id ;
-	    con.query(sql, function(err, results) {
-		    if (err) res.end();
-		    console.log(results);
-		    if(req.isAuthenticated())
-		    {
-		    	res.render("single-product", {data:results, user:req.user, logged: true  });
-		    }else{
-		    	res.render("single-product", {data:results, logged: false  });
-		    }
-		});
-	});
+	router.get("/category", function(req, res, next){ authControl.getCategory(req, res, next) });
 
-	router.get('/registration.html', function(req, res, next) {
-	    if(req.isAuthenticated())
-	    {
-	    	res.render("registration", { message: req.flash('signupMessage'), user:req.user, logged: true  });
-	    }else{
-	    	res.render("registration", { message: req.flash('signupMessage'), logged: false  });
-	    }
-	});
+	router.get("/chitiet:id", function(req, res, next){ authControl.getCategory(req, res, next) });
 
-	router.get('/blog.html', function(req, res, next) {
-	    if(req.isAuthenticated()){
-	    	res.render("blog", { user:req.user, logged: true  });
-	    	console.log(req.isAuthenticated());
-	    }else{
-	    	res.render("blog", { logged: false  });
-	    	console.log(req.isAuthenticated());
-		}
-	});
+	router.get('/registration', function(req, res, next){ authControl.getRegistration(req, res, next) });
 
-	router.get('/cart.html', function(req, res, next) {
-		if(req.isAuthenticated())
-		{
-	    	res.render("cart", { user:req.user, logged: true  });
-		}else{
-	    	res.render("cart", { logged: false  });
-	    }
-	});
+	router.get('/blog', function(req, res, next){ authControl.getBlog(req, res, next) });
 
-	router.get('/checkout.html', function(req, res, next) {
-		if(req.isAuthenticated())
-		{
-	    	res.render("checkout", { user:req.user, logged: true  });
-	    }else{
-	    	res.render("checkout", { logged: false  });
-	    }
-	});
+	router.get('/cart', function(req, res, next){ authControl.getCart(req, res, next) });
 
-	router.get('/contact.html', function(req, res, next) {
-		if(req.isAuthenticated()){
-	    	res.render("contact", { user:req.user, logged: true  });
-	    }else{
-	    	res.render("contact", { logged: false  });
-	    }
-	});
+	router.get('/checkout',function(req, res, next){ authControl.getCheckout(req, res, next) });
 
-	router.get('/forgetPassword.html', function(req, res, next) {
-	  res.render('forgetPassword');
-	});
+	router.get('/contact', function(req, res, next){ authControl.getContact(req, res, next) });
 
-	router.get('/confirmation.html', function(req, res, next) {
-		if(req.isAuthenticated()){
-	    	res.render("confirmation", { user:req.user, logged: true  });
-		}else{
-	    	res.render("confirmation", { logged: false  });
-		}
-	});
+	router.get('/forgetPassword', function(req, res, next){ authControl.getForget(req, res, next) });
 
-	router.get('/login.html', function(req, res, next) {
-	 	res.render("login", { message:req.flash('loginMessage'), logged: false  });
-	});
+	router.get('/confirmation', function(req, res, next){ authControl.getConfirmation(req, res, next) });
 
-	router.get('/logout', function(req, res){
-		req.logout();
-		res.redirect('/');
-	});
+	router.get('/login', function(req, res, next){ authControl.getLogin(req, res, next) });
+
+	router.get('/logout', function(req, res, next){ authControl.getLogout(req, res) });
 
 	//POST
 
-	router.post('/login.html', passport.authenticate('local-login', 
+	router.post('/login', passport.authenticate('local-login', 
 		{
-			successRedirect: '/index.html',
-			failureRedirect: '/login.html',
+			successRedirect: '/index',
+			failureRedirect: '/login',
 			failureFlash: true
-		}), 
-		function(req, res) {
-			if(req.body.remember){
-				req.session.cookie.maxAge = 1000 * 60 * 3;
-			}else{
-				req.session.cookie.expires = false;
-			}
-			res.redirect('/login.html');
-		}
-	);
-	router.post('/registration.html', passport.authenticate('local-signup', {
-		successRedirect: '/index.html',
-		failureRedirect: '/registration.html',
+		}), function(req, res) { authControl.postLogin(req, res) });
+
+	router.post('/registration', passport.authenticate('local-signup', {
+		successRedirect: '/index',
+		failureRedirect: '/registration',
 		failureFlash: true
 	}));
 };
-function isLoggedIn(req, res, next){
-	if(req.isAuthenticated())
-		return next();
-	res.redirect('/hehehe');
-}

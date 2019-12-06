@@ -40,8 +40,8 @@
 				<div class="col-first">
 					<h1>Đăng nhập/Đăng ký</h1>
 					<nav class="d-flex align-items-center">
-						<a href="index.html">Trang chủ<span class="lnr lnr-arrow-right"></span></a>
-						<a href="category.html">Đăng nhập/Đăng ký</a>
+						<a href="index">Trang chủ<span class="lnr lnr-arrow-right"></span></a>
+						<a href="category">Đăng nhập/Đăng ký</a>
 					</nav>
 				</div>
 			</div>
@@ -58,7 +58,7 @@
 						<img class="img-fluid" src="img/login.jpg" alt="">
 						<div class="hover">
 							<h4>Bạn mới tham gia?</h4>
-							<a class="primary-btn" href="registration.html">Tạo tài khoản</a>
+							<a class="primary-btn" href="registration">Tạo tài khoản</a>
 						</div>
 					</div>
 				</div>
@@ -69,7 +69,7 @@
 							<% if(message.length > 0) { %>
 								<div class="alert alert-danger"><%= message %></div>
 							<% } %>
-						<form class="row login_form" action="/login.html" method="post" id="contactForm" novalidate="novalidate">
+						<form class="row login_form" action="/login" method="post" id="contactForm" novalidate="novalidate">
 							<div class="col-md-12 form-group">
 								<input type="email" class="form-control" id="signin-email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
 							</div>
@@ -84,7 +84,7 @@
 							</div>
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="primary-btn">Đăng nhập</button>
-								<a href="forgetPassword.html">Quên tài khoản?</a>
+								<a href="forgetPassword">Quên tài khoản?</a>
 							</div>
 						</form>
 					</div>

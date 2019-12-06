@@ -8,10 +8,9 @@ var logger = require('morgan');
 
 var passport = require('passport');
 var flash = require('connect-flash');
-var userRouter = require('./routes/user');
 var app = express();
 
-require('./data/passport')(passport)
+require('./data/passport')(passport);
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -27,7 +26,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-userRouter(app, passport);
+require('./routes/user')(app, passport);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

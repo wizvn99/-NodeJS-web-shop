@@ -1,7 +1,7 @@
 
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcrypt-nodejs');
-const accountRepo = require('../controller/accountRepo');
+const accountRepo = require('../models/accountRepo');
 module.exports = function(passport) 
 {
 	passport.serializeUser(function(user, done){
