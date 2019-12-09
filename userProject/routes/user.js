@@ -1,4 +1,5 @@
 var authControl = require('../controllers/authentication');
+var categoryControl = require('../controllers/categoryController');
 
 
 module.exports = function(router, passport){
@@ -6,9 +7,9 @@ module.exports = function(router, passport){
 
 	router.get("/index", function(req, res, next){ authControl.getRoot(req, res, next) });
 
-	router.get("/category", function(req, res, next){ authControl.getCategory(req, res, next) });
+	router.get("/category", function(req, res, next){ categoryControl.getCategory(req, res, next) });
 
-	router.get("/chitiet:id", function(req, res, next){ authControl.getCategory(req, res, next) });
+	router.get("/chitiet:id", function(req, res, next){ authControl.getChitiet(req, res, next) });
 
 	router.get('/registration', function(req, res, next){ authControl.getRegistration(req, res, next) });
 

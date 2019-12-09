@@ -7,6 +7,14 @@
 /* Wide Mobile Layout: 480px */
 /* Section Gaps css
 ============================================================================================ */
+.btn-outline-dark
+{
+  margin-bottom: 20px; }
+
+.nav-custom
+{
+  margin-bottom: 20px; }
+
 .no-padding {
   padding: 0; }
 

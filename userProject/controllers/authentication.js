@@ -15,20 +15,6 @@ module.exports.getRoot = function(req, res, next)
 	});
 };
 
-module.exports.getCategory = function(req,res, next)
-{
-    var sql = "SELECT * FROM shoe ";
-    con.query(sql, function(err, results) {
-	    if (err) res.end();
-	    console.log(results);
-	    if(req.isAuthenticated()){
-	    	res.render("category",{data:results, user:req.user, logged: true  });
-	    }else{
-	    	res.render("category",{data:results, logged: false  });
-	    }
-	});
-};
-
 module.exports.getChitiet = function(req,res, next){
     var sql = "SELECT * FROM shoe WHERE magiay=" + req.params.id ;
     con.query(sql, function(err, results) {
