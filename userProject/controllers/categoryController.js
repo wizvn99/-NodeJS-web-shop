@@ -28,11 +28,11 @@ module.exports.getCategory = function(req,res, next)
 
 	if(sortby != "none")
 	{
-		if(sortby == "giagiam") sql = sql + "ORDER BY giamoi DESC";
-		if(sortby == "giatang") sql = sql + "ORDER BY giamoi ASC";
-		if(sortby == "soluongtang") sql = sql + "ORDER BY soluong ASC";
-		if(sortby == "soluonggiam") sql = sql + "ORDER BY soluong DESC";
-		if(sortby == "a-z") sql = sql + "ORDER BY tengiay ASC";
+		if(sortby == "giagiam") sql = sql + " ORDER BY giamoi DESC";
+		if(sortby == "giatang") sql = sql + " ORDER BY giamoi ASC";
+		if(sortby == "soluongtang") sql = sql + " ORDER BY soluong ASC";
+		if(sortby == "soluonggiam") sql = sql + " ORDER BY soluong DESC";
+		if(sortby == "a-z") sql = sql + " ORDER BY tengiay ASC";
 	}
 
     con.query(sql, function(err, results) {
