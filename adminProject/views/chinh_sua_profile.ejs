@@ -1,25 +1,28 @@
 <%- include('header'); -%>
 <div class="container">
   <h2>Xin điền thông tin</h2>
-  <form >
+  <form action="/chinh_sua_profile" method="post">
+     <div class="form-group">
+      <label for="name">Tên hiển thị:</label>
+      <input type="text" class="form-control" id="name" placeholder="Nhập tên hiển thị" name="name">
+    </div>
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" class="form-control" id="email" placeholder="Nhập email" name="email">
     </div>
     <div class="form-group">
-      <label for="pwd">Mật khẩu:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Nhập mật khẩu" name="pswd">
+      <label for="password">Mật khẩu:</label>
+      <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu" name="password">
     </div>
     <div class="form-group">
-      <label for="email">Sinh nhật:</label>
-      <input type="email" class="form-control" id="birth" placeholder="Nhập ngày sinh" name="email">
-    </div>
-    <div class="form-group form-check">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="remember">Bạn là nam?
-      </label>
+      <label for="email">Số điện thoại:</label>
+      <input type="number" class="form-control" id="tel" placeholder="Nhập số điện thoại" name="tel">
     </div>
     <button type="submit" class="btn btn-primary">Cập nhật</button>
   </form>
 </div>
 <%- include('footer'); -%>
+
+</body>
+
+</html>

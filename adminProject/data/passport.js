@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt-nodejs');
 // con = cn.create
 // con.query('USE shopshoe');
 
-const accountRepo = require('../controller/accountRepo');
+const accountRepo = require('../models/accountRepo');
 
 module.exports = function(passport) {
 	passport.serializeUser(function(user, done){
@@ -75,6 +75,7 @@ module.exports = function(passport) {
 				}
 				if(!bcrypt.compareSync(password, rows[0].password))
 					return done(null, false, req.flash('loginMessage', 'Sai mật khẩu'));
+				req.session.user = rows[0];
 				return done(null, rows[0]);
 			})
 			.catch(function(err){
