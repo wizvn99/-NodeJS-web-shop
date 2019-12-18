@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 10, 2019 at 12:23 PM
+-- Generation Time: Dec 18, 2019 at 03:46 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.2.24-0ubuntu0.18.04.1
 
@@ -41,8 +41,9 @@ CREATE TABLE `adminUsers` (
 --
 
 INSERT INTO `adminUsers` (`id`, `name`, `password`, `email`, `tel`) VALUES
-(1, NULL, '$2a$10$XWHFOuSLoCAb8QtPX.XLauK1ht88EgkYivkthvtU0bGBhRTRuux/u', 'nodejsacc1@gmail.com', NULL),
-(4, 'Vinh', '$2a$10$PAnCVFNZ25p3Z6b8EnEPgesQoeZrXGAaO/GMaXTpzujJZF2floFXW', 'nodejsacc2@gmail.com', '0868459091');
+(1, 'S-Admin', '$2a$10$XWHFOuSLoCAb8QtPX.XLauK1ht88EgkYivkthvtU0bGBhRTRuux/u', 'nodejsacc1@gmail.com', NULL),
+(4, 'Vinh', '$2a$10$PAnCVFNZ25p3Z6b8EnEPgesQoeZrXGAaO/GMaXTpzujJZF2floFXW', 'nodejsacc2@gmail.com', '0868459091'),
+(5, 'adminVY', '$2a$10$Mgnrmzg3Rl4EUkSdXgjkg.pNuuGJR6ETYsd/.qa9D9KFzsWY6AAJO', 'adminVY@gmail.com', '123456789');
 
 -- --------------------------------------------------------
 
@@ -102,7 +103,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `password`, `name`, `tel`) VALUES
 (1, 'nodejsacc3@gmail.com', '$2a$10$CFzE0H4WBOogvtnZnf5aQuZ7mV5Pb9oFbPOvKrN1Hjc.e4sTFI8W.', 'Thay giao 3', '1234567981'),
-(2, 'user1@gmail.com', '$2a$10$3c9Ltd18Y3BMxmU/eSOBKO1zyEP9cWDQ0r/x2rHIphrBqTJBfB.aO', 'Vinh Đặng', '0915797703');
+(2, 'user1@gmail.com', '$2a$10$3c9Ltd18Y3BMxmU/eSOBKO1zyEP9cWDQ0r/x2rHIphrBqTJBfB.aO', 'Vinh Đặng', '0915797703'),
+(3, 'truongvy@gmail.com', '$2a$10$QV4zpWYhAt0yGe9CAwlSBu5bTZuN70oi6pE6goXPzXOeSisg27O32', 'vy dep chai', '012');
 
 --
 -- Indexes for dumped tables
@@ -134,13 +136,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `adminUsers`
 --
 ALTER TABLE `adminUsers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

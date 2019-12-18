@@ -43,10 +43,12 @@ module.exports = function(passport) {
 						name: req.param('name'),
 						tel: req.param('tel')
 					};
-					accountRepo.add(newUserMysql).then(rows => {
-						newUserMysql.id = rows.insertId;
-						return done(null, newUserMysql);
-					});
+					accountRepo.add(newUserMysql)
+					// .then(rows => {
+					// 	newUserMysql.id = rows.insertId;
+					// 	req.session.user = rows[0];
+					// 	return done(null, newUserMysql);
+					// });
 					//const insertQuery = "INSERT INTO adminUsers (email, password) values (?, ?)";
 					// con.query(insertQuery, [newUserMysql.email, newUserMysql.password],
 					// 	function(err, rows){
@@ -76,6 +78,12 @@ module.exports = function(passport) {
 				if(!bcrypt.compareSync(password, rows[0].password))
 					return done(null, false, req.flash('loginMessage', 'Sai mật khẩu'));
 				req.session.user = rows[0];
+				if(rows[0].name == "S-Admin")
+				{
+					req.session.isSuperAdmin = true;
+				}
+				else
+					req.session.isSuperAdmin = false;
 				return done(null, rows[0]);
 			})
 			.catch(function(err){
