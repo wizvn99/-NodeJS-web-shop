@@ -12,48 +12,29 @@
 			<thead>
 				<tr>
 					<th>Mã tài khoản</th>
-					<th>Tên khoản</th>
-					<th>Ngày tạo tài khoản</th>
+					<th>Email</th>
+					<th>Tên hiển thị</th>
 					<th>Tình trạng</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
+			<% for(var i=0; i<users.length; i++) {%>
 				<tr>
-					<td><a href="profile">763648</a></td>
-					<td>Steven Havard</td>
-					<td>Oct 21, 2016</td>
-					<td><span class="label label-success">Đang hoạt động</span></td>
-					<td><a href="/quan_ly_account">Xóa</a></td>
-				</tr>
-				<tr>
-					<td><a href="profile">763649</a></td>
-					<td>Amber</td>
-					<td>Oct 21, 2016</td>
-					<td><span class="label label-warning">Hoạt động 30 ngày trước</span></td>
-					<td><a href="/quan_ly_account">Xóa</a></td>
-				</tr>
-				<tr>
-					<td><a href="profile">763650</a></td>
-					<td>Michael</td>
-					<td>Oct 18, 2016</td>
+					<td><a href="#"><%= users[i].id %></a></td>
+					<td><%= users[i].email %></td>
+					<td><%= users[i].name %></td>
+
+					<% if(users[i].stt == 0){ %>
 					<td><span class="label label-danger">Đã bị ban</span></td>
 					<td></td>
-				</tr>
-				<tr>
-					<td><a href="profile">763651</a></td>
-					<td>Roger</td>
-					<td>Oct 17, 2016</td>
-					<td><span class="label label-warning">Hoạt động 10 phút trước</span></td>
+					<% } else{ %>  
+						<td><span class="label label-success">Hoạt động</span></td>
+						<td><a href="/quan_ly_account">Ban</a></td>
+					<% } %>
 					<td><a href="/quan_ly_account">Xóa</a></td>
 				</tr>
-				<tr>
-					<td><a href="profile">763652</a></td>
-					<td>Smith</td>
-					<td>Oct 16, 2016</td>
-					<td><span class="label label-warning">Hoạt động 20 phút trước</span></td>
-					<td><a href="/quan_ly_account">Xóa</a></td>
-				</tr>
+			<% } %>	
 			</tbody>
 		</table>
 	</div>
@@ -101,3 +82,4 @@
 </body>
 
 </html>
+<td><span class="label label-warning">Hoạt động 20 phút trước</span></td>

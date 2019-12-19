@@ -1,4 +1,5 @@
 const accountRepo = require('../models/accountRepo');
+const accountUsersRepo = require('../models/accountUsersRepo');
 const bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(router, passport){
@@ -25,12 +26,22 @@ module.exports = function(router, passport){
 	// router.get('/quan_ly_account', isLoggedIn, function(req, res, next) {
 	//   res.render('quan_ly_account', { action: "Quản lý accounts", user:req.session.user });
 	// });
-	router.get('/quan_ly_account', isLoggedIn, function(req, res, next) {
+	router.get('/quan_ly_admin', isSuperAdmin, function(req, res, next) {
 		accountRepo.loadAll().then(rows => {
 			const page = parseInt(req.query.page) || 1;
-			const perPage = 3;
-			const start = (page - 1) * perPage;
-			const end = page * perPage;
+			const perPage = 5;
+			let start = (page - 1) * perPage;
+			let end = page * perPage;
+			res.render('quan_ly_account', { action: "Quản lý accounts", user:req.session.user, users: rows.slice(start, end) });	
+		})
+	});
+
+	router.get('/quan_ly_account', isLoggedIn, function(req, res, next) {
+		accountUsersRepo.loadAll().then(rows => {
+			const page = parseInt(req.query.page) || 1;
+			const perPage = 5;
+			let start = (page - 1) * perPage;
+			let end = page * perPage;
 			res.render('quan_ly_account', { action: "Quản lý accounts", user:req.session.user, users: rows.slice(start, end) });	
 		})
 	});

@@ -1,7 +1,7 @@
 var db = require('../data/db');
 
 exports.loadAll = () => {
-	var sql=`select email from adminUsers`;
+	var sql=`select * from adminUsers`;
 	return db.load(sql);
 }
 
