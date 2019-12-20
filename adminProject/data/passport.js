@@ -78,7 +78,7 @@ module.exports = function(passport) {
 				if(!bcrypt.compareSync(password, rows[0].password))
 					return done(null, false, req.flash('loginMessage', 'Sai mật khẩu'));
 				req.session.user = rows[0];
-				if(rows[0].name == "S-Admin")
+				if(rows[0].id == 1)
 				{
 					req.session.isSuperAdmin = true;
 				}

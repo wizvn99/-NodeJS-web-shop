@@ -26,11 +26,11 @@
 					<td><%= users[i].name %></td>
 
 					<% if(users[i].stt == 0){ %>
-					<td><span class="label label-danger">Đã bị ban</span></td>
+					<td><span class="label label-danger">Đã bị hủy</span></td>
 					<td></td>
 					<% } else{ %>  
 						<td><span class="label label-success">Hoạt động</span></td>
-						<td><a href="/quan_ly_account/delete/<%= users[i].id %>">Hủy tài khoản</a></td>
+						<td><a href="/quan_ly_admin/delete/<%= users[i].id %>">Hủy tài khoản</a></td>
 					<% } %>
 				</tr>
 			<% } %>	
@@ -44,20 +44,24 @@
 			<% if(curPage == 1){ %>
 				<li class="page-item"><a class="page-link" href="#">Trước</a></li>
 			    <li class="page-item"><a class="page-link" href="#">1</a></li>
-			    <li class="page-item"><a class="page-link" href="/quan_ly_account?page=2">2</a></li>
-			    <li class="page-item"><a class="page-link" href="/quan_ly_account?page=3">3</a></li>
+			    <li class="page-item"><a class="page-link" href="/quan_ly_admin?page=2">2</a></li>
+			    <li class="page-item"><a class="page-link" href="/quan_ly_admin?page=3">3</a></li>
 			<% } else{ %>  
-				<li class="page-item"><a class="page-link" href="/quan_ly_account?page=<%= curPage - 1 %>">Trước</a></li>
-			    <li class="page-item"><a class="page-link" href="/quan_ly_account?page=<%= curPage - 1 %>"><%= curPage - 1 %></a></li>
+				<li class="page-item"><a class="page-link" href="/quan_ly_admin?page=<%= curPage - 1 %>">Trước</a></li>
+			    <li class="page-item"><a class="page-link" href="/quan_ly_admin?page=<%= curPage - 1 %>"><%= curPage - 1 %></a></li>
 			    <li class="page-item"><a class="page-link" href="#"><%= curPage %></a></li>
-			    <li class="page-item"><a class="page-link" href="/quan_ly_account?page=<%= curPage + 1 %>"><%= curPage + 1 %></a></li>
+			    <li class="page-item"><a class="page-link" href="/quan_ly_admin?page=<%= curPage + 1 %>"><%= curPage + 1 %></a></li>
 			<% } %>
-			    <li class="page-item"><a class="page-link" href="/quan_ly_account?page=<%= curPage + 1 %>">Tiếp theo</a></li>
+			    <li class="page-item"><a class="page-link" href="/quan_ly_admin?page=<%= curPage + 1 %>">Tiếp theo</a></li>
 			</ul>
+
 		</div>
 	</div>
 </div>
+
+<div class="col-md-6 text-right"><a href="/signup" class="btn btn-primary">Tạo tài khoản admin</a></div>
 <hr><hr>
+
 <div class="panel-heading">
 	<h3 class="panel-title">Hoạt động mọi người dùng gần đây</h3>
 	<div class="right">

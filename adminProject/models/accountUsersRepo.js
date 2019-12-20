@@ -16,7 +16,12 @@ exports.login = user => {
 }
 
 exports.update = user => {
-	var sql=`update users set name='${user.name}' where id=${user.id};`;
+	var sql=`update users set name='${user.name}', password='${user.password}', email='${user.email}', tel=${user.tel} where id=${user.id};`;
+	return db.save(sql);
+}
+
+exports.stt = (id) => {
+	var sql=`update users set stt=0 where id=${id};`;
 	return db.save(sql);
 }
 

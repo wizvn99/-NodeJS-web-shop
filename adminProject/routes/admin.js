@@ -32,7 +32,7 @@ module.exports = function(router, passport){
 			const perPage = 5;
 			let start = (page - 1) * perPage;
 			let end = page * perPage;
-			res.render('quan_ly_account', { action: "Quản lý accounts", user:req.session.user, users: rows.slice(start, end) });	
+			res.render('quan_ly_admin', { action: "Quản lý Admin", user:req.session.user, users: rows.slice(start, end), curPage: page });	
 		})
 	});
 
@@ -42,7 +42,7 @@ module.exports = function(router, passport){
 			const perPage = 5;
 			let start = (page - 1) * perPage;
 			let end = page * perPage;
-			res.render('quan_ly_account', { action: "Quản lý accounts", user:req.session.user, users: rows.slice(start, end) });	
+			res.render('quan_ly_account', { action: "Quản lý người dùng", user:req.session.user, users: rows.slice(start, end), curPage: page });	
 		})
 	});
 
@@ -62,6 +62,21 @@ module.exports = function(router, passport){
 		req.logout();
 		res.redirect('/');
 	});
+
+	router.get('/quan_ly_account/delete/:id', function(req, res){
+		accountRepo.stt(req.params.id).then(result =>{
+			if (result.affectedRows)
+				res.redirect('/quan_ly_account');
+		})
+	});
+
+	router.get('/quan_ly_admin/delete/:id', function(req, res){
+		accountRepo.stt(req.params.id).then(result =>{
+			if (result.affectedRows)
+				res.redirect('/quan_ly_admin');
+		})
+	});
+	
 	//Post
 
 	router.post('/', passport.authenticate('local-login', 
