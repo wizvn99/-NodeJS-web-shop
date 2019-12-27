@@ -65,6 +65,66 @@
 	</div>
 </div>
 
+<div class="panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">Tất cả tài khoản</h3>
+		<div class="right">
+			<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+			<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+		</div>
+	</div>
+	<div class="panel-body no-padding">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Mã giày</th>
+					<th>Tên giày</th>
+					<th>Số lượng</th>
+					<th>Nhãn hiệu</th>
+					<th>Màu</th>
+					<th>Giá cũ</th>
+					<th>Giá mới</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			<% for(var i=0; i<dsGiay.length; i++) {%>
+				<tr>
+					<td><a href="#"><%= dsGiay[i].magiay %></a></td>
+					<td><%= dsGiay[i].tengiay %></td>
+					<td><%= dsGiay[i].soluong %></td>
+					<td><%= dsGiay[i].nhanhieu %></td>
+					<td><%= dsGiay[i].mau %></td>
+					<td><%= dsGiay[i].giacu %></td>
+					<td><%= dsGiay[i].giamoi %></td>
+					<td><a href="/quan_ly_gian_hang/update/<%= dsGiay[i].magiay %>">Sửa</a></td>
+					<td><a href="/quan_ly_gian_hang/delete/<%= dsGiay[i].magiay %>">Xóa</a></td>
+				</tr>
+			<% } %>	
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-footer">
+		<div class="row">
+			<div class="col-md-6"><span class="panel-note"></span></div>
+			<ul class="pagination justify-content-end">
+			<% if(curPage == 1){ %>
+				<li class="page-item"><a class="page-link" href="#">Trước</a></li>
+			    <li class="page-item"><a class="page-link" href="#">1</a></li>
+			    <li class="page-item"><a class="page-link" href="/quan_ly_gian_hang?page=2">2</a></li>
+			    <li class="page-item"><a class="page-link" href="/quan_ly_gian_hang?page=3">3</a></li>
+			<% } else{ %>  
+				<li class="page-item"><a class="page-link" href="/quan_ly_gian_hang?page=<%= curPage - 1 %>">Trước</a></li>
+			    <li class="page-item"><a class="page-link" href="/quan_ly_gian_hang?page=<%= curPage - 1 %>"><%= curPage - 1 %></a></li>
+			    <li class="page-item"><a class="page-link" href="#"><%= curPage %></a></li>
+			    <li class="page-item"><a class="page-link" href="/quan_ly_gian_hang?page=<%= curPage + 1 %>"><%= curPage + 1 %></a></li>
+			<% } %>
+			    <li class="page-item"><a class="page-link" href="/quan_ly_gian_hang?page=<%= curPage + 1 %>">Tiếp theo</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
 <div class="row">
 	<div class="col-md-4">
 		<!-- VISIT CHART -->

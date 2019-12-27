@@ -1,10 +1,11 @@
 const accountRepo = require('../models/accountRepo');
+const productRepo = require('../models/productRepo');
 const accountUsersRepo = require('../models/accountUsersRepo');
 const bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(router, passport){
 	router.get('/', function(req, res, next) {
-	  res.render('admin_login', { message:req.flash('loginMessage')});
+		res.render('admin_login', { message:req.flash('loginMessage')});
 	});
 
 	router.get('/signup', isSuperAdmin, function(req, res){
@@ -12,20 +13,23 @@ module.exports = function(router, passport){
 	});
 
 	router.get('/index', isLoggedIn, function(req, res, next) {
-	  res.render('index', { action: "Điều khiển", user:req.session.user });
+		res.render('index', { action: "Điều khiển", user:req.session.user });
 	});
 
 	router.get('/quan_ly_gian_hang', isLoggedIn, function(req, res, next) {
-	  res.render('quan_ly_gian_hang', { action: "Quản lý gian hàng", user:req.session.user });
+		productRepo.loadAll().then(rows => {
+			const page = parseInt(req.query.page) || 1;
+			const perPage = 5;
+			let start = (page - 1) * perPage;
+			let end = page * perPage;
+			res.render('quan_ly_gian_hang', { action: "Quản lý gian hàng", user:req.session.user, dsGiay: rows.slice(start, end), curPage: page });	
+		})
 	});
 
 	router.get('/profile', isLoggedIn, function(req, res, next) {
 	  res.render('profile', { action: "Profile", user:req.session.user });
 	});
 
-	// router.get('/quan_ly_account', isLoggedIn, function(req, res, next) {
-	//   res.render('quan_ly_account', { action: "Quản lý accounts", user:req.session.user });
-	// });
 	router.get('/quan_ly_admin', isSuperAdmin, function(req, res, next) {
 		accountRepo.loadAll().then(rows => {
 			const page = parseInt(req.query.page) || 1;
@@ -63,20 +67,30 @@ module.exports = function(router, passport){
 		res.redirect('/');
 	});
 
-	router.get('/quan_ly_account/delete/:id', function(req, res){
-		accountRepo.stt(req.params.id).then(result =>{
+	router.get('/quan_ly_account/delete/:id', isLoggedIn, function(req, res){
+		accountUsersRepo.stt(req.params.id).then(result =>{
 			if (result.affectedRows)
 				res.redirect('/quan_ly_account');
 		})
 	});
 
-	router.get('/quan_ly_admin/delete/:id', function(req, res){
+	router.get('/quan_ly_admin/delete/:id', isSuperAdmin, function(req, res){
 		accountRepo.stt(req.params.id).then(result =>{
 			if (result.affectedRows)
 				res.redirect('/quan_ly_admin');
 		})
 	});
-	
+
+	// router.get('/quan_ly_gian_hang/delete/:magiay',isLoggedIn, function(req, res){
+	// 	productRepo.delete(req.params.magiay).then(result =>{
+	// 		if (result.affectedRows)
+	// 			res.redirect('/quan_ly_gian_hang');
+	// 	})
+	// });
+	// router.get('/quan_ly_gian_hang/update/:magiay', function(req, res, next){
+	// 	res.render('updateProduct', { action: "Chỉnh sửa sản phẩm", user:req.session.user, magiay:req.params.magiay });
+	// });
+
 	//Post
 
 	router.post('/', passport.authenticate('local-login', 
@@ -95,11 +109,6 @@ module.exports = function(router, passport){
 		}
 	);
 
-	// router.post('/signup', passport.authenticate('local-signup', {
-	// 	successRedirect: '/logout',
-	// 	failureRedirect: '/signup',
-	// 	failureFlash: true
-	// }));
 	router.post('/signup', function(req, res){
 		const passwordField = req.param('password');
 		const emailField = req.param('email');
@@ -149,6 +158,26 @@ module.exports = function(router, passport){
 	        });
     	});
 
+	});
+
+	router.post('/quan_ly_gian_hang/update/:magiay', function(req, res, next){
+		const giay = {
+			magiay: req.param.magiay,
+			anh: req.param('anh'),
+			tengiay: req.param('tengiay'),
+			soluong: req.param('soluong'),
+			nhanhieu: req.param('nhanhieu'),
+			mau: req.param('mau'),
+			giacu: req.param('giacu'),
+			giamoi: req.param('giamoi'),
+		};
+		productRepo.update(giay).then(value => {
+	        productRepo.singleId(giay.magiay).then(rows => {
+	            if (rows.length > 0) {
+	                res.redirect('/quan_ly_gian_hang');
+	            }
+	        });
+    	});
 	});
 }
 function isLoggedIn(req, res, next){
