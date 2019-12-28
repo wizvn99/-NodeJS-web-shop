@@ -25,6 +25,22 @@ module.exports = function(router, passport){
 			res.render('quan_ly_gian_hang', { action: "Quản lý gian hàng", user:req.session.user, dsGiay: rows.slice(start, end), curPage: page });	
 		})
 	});
+	router.get('/quan_ly_gian_hang/delete/:id', isLoggedIn, function(req, res){
+		productRepo.delete(req.params.id).then(result =>{
+			if (result.affectedRows)
+				res.redirect('/quan_ly_gian_hang');
+		})
+	});
+	//update san pham
+	router.get('/update', isLoggedIn, function(req, res, next) {
+		productRepo.singleId(req.query.id).then(giay =>{
+			res.render('updateProduct', { action: "Chỉnh sửa sản phẩm", user:req.session.user, giay:giay[0] });
+		})
+	});
+	//them san pham
+	router.get('/addProduct', isLoggedIn, function(req, res, next) {
+		res.render('addProduct', { action: "Thêm sản phẩm", user:req.session.user, message:req.flash('addProductMessage') });
+	});
 
 	router.get('/profile', isLoggedIn, function(req, res, next) {
 	  res.render('profile', { action: "Profile", user:req.session.user });
@@ -81,15 +97,7 @@ module.exports = function(router, passport){
 		})
 	});
 
-	// router.get('/quan_ly_gian_hang/delete/:magiay',isLoggedIn, function(req, res){
-	// 	productRepo.delete(req.params.magiay).then(result =>{
-	// 		if (result.affectedRows)
-	// 			res.redirect('/quan_ly_gian_hang');
-	// 	})
-	// });
-	// router.get('/quan_ly_gian_hang/update/:magiay', function(req, res, next){
-	// 	res.render('updateProduct', { action: "Chỉnh sửa sản phẩm", user:req.session.user, magiay:req.params.magiay });
-	// });
+
 
 	//Post
 
@@ -159,17 +167,18 @@ module.exports = function(router, passport){
     	});
 
 	});
-
-	router.post('/quan_ly_gian_hang/update/:magiay', function(req, res, next){
+		//PRODUCT
+			//update product
+	router.post('/update', function(req, res, next){
 		const giay = {
-			magiay: req.param.magiay,
+			magiay: req.query.id,
 			anh: req.param('anh'),
 			tengiay: req.param('tengiay'),
 			soluong: req.param('soluong'),
 			nhanhieu: req.param('nhanhieu'),
 			mau: req.param('mau'),
 			giacu: req.param('giacu'),
-			giamoi: req.param('giamoi'),
+			giamoi: req.param('giamoi')
 		};
 		productRepo.update(giay).then(value => {
 	        productRepo.singleId(giay.magiay).then(rows => {
@@ -178,6 +187,31 @@ module.exports = function(router, passport){
 	            }
 	        });
     	});
+	});
+			//add product
+	router.post('/addProduct', function(req, res, next){
+		const giay = {
+			magiay: req.param('magiay'),
+			anh: req.param('anh'),
+			tengiay: req.param('tengiay'),
+			soluong: req.param('soluong'),
+			nhanhieu: req.param('nhanhieu'),
+			mau: req.param('mau'),
+			giacu: req.param('giacu'),
+			giamoi: req.param('giamoi')
+		};
+    	productRepo.singleId(giay.magiay).then(result => {
+			if(result.length)
+			{
+				req.flash('addProductMessage', 'Mã giày đã tồn tại');
+				res.redirect('/addProduct');
+			}
+			else{
+					productRepo.add(giay).then(rows => {
+	                	res.redirect('/quan_ly_gian_hang');
+	            });
+			};
+		});
 	});
 }
 function isLoggedIn(req, res, next){

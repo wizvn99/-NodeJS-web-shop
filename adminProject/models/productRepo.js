@@ -12,7 +12,7 @@ exports.add = giay => {
 
 
 exports.update = giay => {
-	const sql=`update shoe set name='${user.name}', password='${user.password}', email='${user.email}', tel=${user.tel} where id=${user.id};`;
+	const sql=`update shoe set anh='${giay.anh}', tengiay='${giay.tengiay}', soluong='${giay.soluong}', nhanhieu='${giay.nhanhieu}', mau='${giay.mau}', giacu=${giay.giacu}, giamoi=${giay.giamoi} where magiay=${giay.magiay};`;
 	return db.save(sql);
 }
 

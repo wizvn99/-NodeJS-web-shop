@@ -97,8 +97,8 @@
 					<td><%= dsGiay[i].mau %></td>
 					<td><%= dsGiay[i].giacu %></td>
 					<td><%= dsGiay[i].giamoi %></td>
-					<td><a href="/quan_ly_gian_hang/update/<%= dsGiay[i].magiay %>">Sửa</a></td>
-					<td><a href="/quan_ly_gian_hang/delete/<%= dsGiay[i].magiay %>">Xóa</a></td>
+					<td><a href="/update?id=<%= dsGiay[i].magiay %>">Sửa</a></td>
+					<td><a href="/quan_ly_gian_hang/delete/<%= dsGiay[i].magiay %>" onClick="return confirm('Bạn chắc chắn muốn xóa?')">Xóa</a></td>
 				</tr>
 			<% } %>	
 			</tbody>
@@ -123,6 +123,7 @@
 			</ul>
 		</div>
 	</div>
+	<button href="/addProduct" class="btn btn-primary">Thêm sản phẩm</button>
 </div>
 
 <div class="row">
