@@ -30,11 +30,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `adminUsers` (
   `id` int(11) NOT NULL,
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `password` text NOT NULL,
-  `email` text NOT NULL,
-  `tel` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `name` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  `password` char(64) DEFAULT NULL,
+  `email` char(30) DEFAULT NULL,
+  `tel` char(12) DEFAULT NULL,
+  `stt` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `adminUsers`
@@ -52,15 +53,15 @@ INSERT INTO `adminUsers` (`id`, `name`, `password`, `email`, `tel`) VALUES
 --
 
 CREATE TABLE `shoe` (
-  `magiay` varchar(255) NOT NULL,
-  `anh` varchar(15) DEFAULT NULL,
-  `tengiay` varchar(255) DEFAULT NULL,
-  `soluong` varchar(15) DEFAULT NULL,
-  `nhanhieu` varchar(15) DEFAULT NULL,
-  `mau` varchar(15) DEFAULT NULL,
+  `magiay` int(11) NOT NULL,
+  `anh` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
+  `tengiay` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `soluong` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
+  `nhanhieu` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
+  `mau` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
   `giacu` int(11) DEFAULT NULL,
   `giamoi` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `shoe`
@@ -91,11 +92,12 @@ INSERT INTO `shoe` (`magiay`, `anh`, `tengiay`, `soluong`, `nhanhieu`, `mau`, `g
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` text NOT NULL,
-  `name` text,
-  `tel` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `name` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  `password` char(64) DEFAULT NULL,
+  `email` char(30) DEFAULT NULL,
+  `tel` char(12) DEFAULT NULL,
+  `stt` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -137,7 +139,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `adminUsers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+  
+--
+-- AUTO_INCREMENT for table `shoe`
+--
+ALTER TABLE `shoe`
+  MODIFY `magiay` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  
 --
 -- AUTO_INCREMENT for table `users`
 --

@@ -1,6 +1,8 @@
 var authControl = require('../controllers/authentication');
 var categoryControl = require('../controllers/categoryController');
 
+var Cart = require('../models/cartModel');
+var Product = require('../models/productModel')
 
 module.exports = function(router, passport){
 	router.get("/", function(req, res, next){ authControl.getRoot(req, res, next) });
@@ -29,6 +31,19 @@ module.exports = function(router, passport){
 
 	router.get('/logout', function(req, res, next){ authControl.getLogout(req, res) });
 
+	router.get('/add-to-cart/:id', function(req, res, next){
+		let productId = req.params.id;
+		let cart = new Cart(req.session.cart ? req.session.cart : {});
+		Product.singleId(productId).then(rows => {
+			cart.add(rows[0], rows[0].magiay);
+			req.session.cart = cart;
+			console.log(req.session.cart);
+			res.redirect('/');
+		})
+		.catch(function(err){
+			res.redirect('/');
+		});
+	});
 	//POST
 
 	router.post('/login', passport.authenticate('local-login', 

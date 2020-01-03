@@ -53,7 +53,7 @@ module.exports.getCart = function(req, res, next) {
 	{
     	res.render("cart", { user:req.user, logged: true  });
 	}else{
-    	res.render("cart", { logged: false  });
+		res.redirect('/');
     }
 };
 
@@ -62,7 +62,7 @@ module.exports.getCheckout =function(req, res, next) {
 	{
     	res.render("checkout", { user:req.user, logged: true  });
     }else{
-    	res.render("checkout", { logged: false  });
+    	res.redirect('/');
     }
 };
 
@@ -92,6 +92,7 @@ module.exports.getLogin = function(req, res, next) {
 
 module.exports.getLogout = function(req, res){
 	req.logout();
+	req.session.isLoggedIn = 0;
 	res.redirect('/');
 };
 

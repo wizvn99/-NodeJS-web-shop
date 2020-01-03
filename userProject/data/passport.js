@@ -60,6 +60,8 @@ module.exports = function(passport)
 				}
 				if(!bcrypt.compareSync(password, rows[0].password))
 					return done(null, false, req.flash('loginMessage', 'Sai mật khẩu'));
+				req.session.user = rows[0];
+				req.session.isLoggedIn = 1;
 				return done(null, rows[0]);
 			})
 			.catch(function(err){
