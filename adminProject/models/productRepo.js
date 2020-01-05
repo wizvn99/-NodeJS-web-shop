@@ -6,7 +6,7 @@ exports.loadAll = () => {
 }
 
 exports.add = giay => {
-    const sql = `insert into shoe(magiay, anh, tengiay, soluong, nhanhieu, mau, giacu, giamoi) VALUES('${giay.magiay}', '${giay.anh}', '${giay.tengiay}', '${giay.soluong}', '${giay.nhanhieu}', '${giay.mau}', ${giay.giacu}, ${giay.giamoi});`;
+    const sql = `insert into shoe(anh, tengiay, soluong, nhanhieu, mau, giacu, giamoi) VALUES('${giay.anh}', '${giay.tengiay}', '${giay.soluong}', '${giay.nhanhieu}', '${giay.mau}', ${giay.giacu}, ${giay.giamoi});`;
     return db.save(sql);
 }
 
@@ -17,7 +17,7 @@ exports.update = giay => {
 }
 
 exports.delete = (magiay) => {
-	const sql=`delete from shoe where magiay='${magiay}';`;
+	const sql=`delete from shoe where magiay=${magiay};`;
 	return db.save(sql);
 }
 

@@ -1,5 +1,6 @@
 var dataconfig = require('../data/db');
 var con = dataconfig.create;
+var Cart = require('../models/cartModel');
 
 module.exports.getRoot = function(req, res, next)
 {
@@ -51,9 +52,14 @@ module.exports.getBlog = function(req, res, next) {
 module.exports.getCart = function(req, res, next) {
 	if(req.isAuthenticated())
 	{
-    	res.render("cart", { user:req.user, logged: true  });
+		if(!req.session.cart)
+		{
+			return res.render("cart", { user:req.user, logged: true, products: null });
+		}
+ 		let cart = new Cart(req.session.cart);
+ 		res.render("cart", { user:req.user, logged: true, products: cart.generateArray(), totalPrice: cart.totalPrice });
 	}else{
-		res.redirect('/');
+		res.redirect('/login');
     }
 };
 
@@ -62,7 +68,7 @@ module.exports.getCheckout =function(req, res, next) {
 	{
     	res.render("checkout", { user:req.user, logged: true  });
     }else{
-    	res.redirect('/');
+    	res.redirect('/login');
     }
 };
 

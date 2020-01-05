@@ -26,11 +26,16 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-require('./routes/user')(app, passport);
+app.use(function(req, res, next) {
+  res.locals.session = req.session;
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+require('./routes/user')(app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

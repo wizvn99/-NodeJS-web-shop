@@ -56,10 +56,14 @@ module.exports = function(passport)
 			accountRepo.singleEmail(email).then(rows =>{
 				if(!rows.length)
 				{
-					return done(null, false, req.flash('loginMessage', 'Không tìm thấy email'));
+					console.log('Không tìm thấy email');
+					return done(null, false, req.flash('loginMessage', 'Sai email hoặc mật khẩu'));
 				}
 				if(!bcrypt.compareSync(password, rows[0].password))
-					return done(null, false, req.flash('loginMessage', 'Sai mật khẩu'));
+				{
+					console.log('Sai mật khẩu');
+					return done(null, false, req.flash('loginMessage', 'Sai email hoặc mật khẩu'));
+				}
 				req.session.user = rows[0];
 				req.session.isLoggedIn = 1;
 				return done(null, rows[0]);
