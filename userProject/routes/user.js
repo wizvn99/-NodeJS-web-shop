@@ -29,8 +29,13 @@ module.exports = function(router, passport){
 	router.get('/logout', function(req, res, next){ authControl.getLogout(req, res) });
 
 	router.get('/add-to-cart/:id', function(req, res, next){ authControl.getAddToCart(req, res, next) });
+
+	router.get('/clear-cart', function(req, res, next){ authControl.getClear(req, res, next) })
+
 	router.get('/pay', function(req, res, next){ authControl.getPay(req, res, next)	})
+
 	//POST
+	router.post('/checkout', function(req, res, next){ authControl.postCheckout(req, res, next)	})
 
 	router.post('/login', passport.authenticate('local-login', 
 		{

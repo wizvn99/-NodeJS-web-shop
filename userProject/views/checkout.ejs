@@ -53,30 +53,6 @@
     <!--================Checkout Area =================-->
     <section class="checkout_area section_gap">
         <div class="container">
-            <div class="returning_customer">
-                <div class="check_title">
-                    <h2>Đã là thành viên? <a href="#">Nhấn vào đây để đăng nhập</a></h2>
-                </div>
-                <p>Hãy điền thông tin cá nhân của bạn</p>
-                <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-                    <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="name" name="name">
-                        <span class="placeholder" data-placeholder="Username or Email"></span>
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                        <input type="password" class="form-control" id="password" name="password">
-                        <span class="placeholder" data-placeholder="Password"></span>
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <button type="submit" value="submit" class="primary-btn">Đăng nhập</button>
-                        <div class="creat_account">
-                            <input type="checkbox" id="f-option" name="selector">
-                            <label for="f-option">Nhớ tài khoản</label>
-                        </div>
-                        <a class="lost_pass" href="#">Quên tài khoản?</a>
-                    </div>
-                </form>
-            </div>
             <div class="cupon_area">
                 <div class="check_title">
                     <h2>Bạn có phiếu giảm giá? <a href="#">Nhấn vào đây</a></h2>
@@ -88,69 +64,30 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <h3>Chi tiết đơn hàng</h3>
-                        <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                        <form class="row contact_form" action="/checkout" method="post" novalidate="novalidate">
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="first" name="name">
-                                <span class="placeholder" data-placeholder="First name"></span>
+                                <input type="text" class="form-control" id="last" name="name" placeholder="Tên người nhận">
                             </div>
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="last" name="name">
-                                <span class="placeholder" data-placeholder="Last name"></span>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="company" name="company" placeholder="Company name">
+                                <input type="text" class="form-control" id="number" name="phonenumber" placeholder="Số điện thoại người nhận">
                             </div>
                             <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="number" name="number">
-                                <span class="placeholder" data-placeholder="Phone number"></span>
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="email" name="compemailany">
-                                <span class="placeholder" data-placeholder="Email Address"></span>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Địa chỉ email người nhận">
                             </div>
                             <div class="col-md-12 form-group p_star">
                                 <select class="country_select">
                                     <option value="1">Việt Nam</option>
                                     <option value="2">Lào</option>
-                                    <option value="4">Nhật Bản</option>
+                                    <option value="4">Trung Quốc</option>
                                 </select>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="add1" name="add1">
-                                <span class="placeholder" data-placeholder="Address line 01"></span>
+                                <input type="text" class="form-control" id="add1" name="address" placeholder="Địa chỉ người nhận">
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="add2" name="add2">
-                                <span class="placeholder" data-placeholder="Address line 02"></span>
+                                <input type="text" class="form-control" id="city" name="city" placeholder="Thành phố/Nông thôn">
                             </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="city" name="city">
-                                <span class="placeholder" data-placeholder="Town/City"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <select class="country_select">
-                                    <option value="1">Quận 5</option>
-                                    <option value="2">Quận 3</option>
-                                    <option value="4">Quận 7</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP">
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <div class="creat_account">
-                                    <input type="checkbox" id="f-option2" name="selector">
-                                    <label for="f-option2">Tạo tài khoản?</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <div class="creat_account">
-                                    <h3>Phí ship</h3>
-                                    <input type="checkbox" id="f-option3" name="selector">
-                                    <label for="f-option3">Ship tới địa chỉ khác?</label>
-                                </div>
-                                <textarea class="form-control" name="message" id="message" rows="1" placeholder="Order Notes"></textarea>
-                            </div>
+                            <button type="submit" class="btn primary-btn" onClick="return confirm('Bạn chắc chắn muốn thanh toán?')">THANH TOÁN</button>
                         </form>
                     </div>
                     <div class="col-lg-4">
@@ -187,7 +124,7 @@
                                 <label for="f-option4">Tôi đã đọc và chấp nhận </label>
                                 <a href="#">điều khoản & thoả thuận*</a>
                             </div>
-                            <a class="primary-btn" href="#">Xác nhận</a>
+                            
                         </div>
                     </div>
                 </div>

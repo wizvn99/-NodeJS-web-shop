@@ -6,7 +6,7 @@ exports.loadAll = () => {
 }
 
 exports.add = hoaDon => {
-    const sql = `insert into hoadon(id, thanhtien, ngaythanhtoan) VALUES(${hoaDon.id}, ${hoaDon.thanhtien}, '${hoaDon.ngaythanhtoan}');`;
+    const sql = `insert into hoadon(id, thanhtien, ngaythanhtoan, name, phonenumber, email, address) VALUES(${hoaDon.id}, ${hoaDon.thanhtien}, '${hoaDon.ngaythanhtoan}', '${hoaDon.name}', '${hoaDon.phonenumber}', '${hoaDon.email}', '${hoaDon.address}');`;
     return db.save(sql);
 }
 
