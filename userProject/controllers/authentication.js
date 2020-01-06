@@ -1,6 +1,10 @@
 var dataconfig = require('../data/db');
 var con = dataconfig.create;
+
 var Cart = require('../models/cartModel');
+var Product = require('../models/productModel')
+var HoaDon = require('../models/hoadonModel')
+var GiaoDich = require('../models/giaodichModel')
 
 module.exports.getRoot = function(req, res, next)
 {
@@ -42,10 +46,8 @@ module.exports.getRegistration = function(req, res, next) {
 module.exports.getBlog = function(req, res, next) {
     if(req.isAuthenticated()){
     	res.render("blog", { user:req.user, logged: true  });
-    	console.log(req.isAuthenticated());
     }else{
     	res.render("blog", { logged: false  });
-    	console.log(req.isAuthenticated());
 	}
 };
 
@@ -110,3 +112,49 @@ module.exports.postLogin = function(req, res) {
 	}
 	res.redirect('/login');
 };
+module.exports.getAddToCart = function(req, res, next) {
+	if(req.isAuthenticated())
+	{
+		let productId = req.params.id;
+		let cart = new Cart(req.session.cart ? req.session.cart : {});
+		Product.singleId(productId).then(rows => {
+			cart.add(rows[0], rows[0].magiay);
+			req.session.cart = cart;
+			console.log(req.session.cart);
+			res.redirect('/');
+		})
+		.catch(function(err){
+			console.log("Loi" + err);
+			res.redirect('/');
+		});
+	}else res.redirect('/');
+};
+module.exports.getPay = function(req, res, next) {
+	if(!req.session.cart)
+		res.redirect('/')
+	const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+	const cart = new Cart(req.session.cart);
+	const products = cart.generateArray();
+	const hoadon = {
+		id: req.session.user.id,
+		thanhtien: cart.totalPrice,
+		ngaythanhtoan: date
+	}
+	HoaDon.add(hoadon).then(rows => {
+		hoadon.mahoadon = rows.insertId;
+		console.log(rows.insertId)
+		for(let i=0; i<products.length;i++)
+		{
+			const giaodich = {
+				magiay: products[i].item.magiay,
+				soluong: products[i].qty,
+				mahoadon: hoadon.mahoadon
+			}
+			GiaoDich.add(giaodich).then(rows => {})
+			.catch(error => console.log(error.message))
+		}
+		console.log("Đặt hàng thành công!")
+		req.session.cart = null
+		res.redirect('/confirmation')
+	}).catch(error => console.log(error.message))
+}

@@ -3,10 +3,10 @@ var mysql = require('mysql');
 module.exports.load = sql => {
     return new Promise((resolve, reject) => {
         var cn = mysql.createConnection({
-            host: "db4free.net",
+            host: "localhost",
             port: "3306",
-            user: "nodejsacc1",
-            password: "passwordne123",
+            user: "root",
+            password: "",
             database: "shopshoe"
 		});
 
@@ -27,10 +27,10 @@ module.exports.load = sql => {
 module.exports.save = sql => {
     return new Promise((resolve, reject) => {
         var cn = mysql.createConnection({
-            host: "db4free.net",
+            host: "localhost",
             port: "3306",
-            user: "nodejsacc1",
-            password: "passwordne123",
+            user: "root",
+            password: "",
             database: "shopshoe"
 		});
 
@@ -49,15 +49,15 @@ module.exports.save = sql => {
 }
 
 var cn = mysql.createConnection({
-            // host: "localhost",
-            // port: "3306",
-            // user: "root",
-            // password: "",
-            // database: "shopshoe"
-		    host: "db4free.net",
-		    port: "3306",
-		    user: "nodejsacc1",
-		    password: "passwordne123",
-		    database: "shopshoe"
+            host: "localhost",
+            port: "3306",
+            user: "root",
+            password: "",
+            database: "shopshoe"
+		    // host: "db4free.net",
+		    // port: "3306",
+		    // user: "nodejsacc1",
+		    // password: "passwordne123",
+		    // database: "shopshoe"
 		});
 module.exports.create = cn;

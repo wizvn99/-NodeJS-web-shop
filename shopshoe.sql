@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 05, 2020 at 05:07 AM
+-- Generation Time: Jan 06, 2020 at 04:35 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.2.24-0ubuntu0.18.04.1
 
@@ -58,24 +58,84 @@ INSERT INTO `adminUsers` (`id`, `name`, `password`, `email`, `tel`, `stt`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `binhluan`
+--
+
+CREATE TABLE `binhluan` (
+  `magiay` int(11) NOT NULL,
+  `mabinhluan` int(11) NOT NULL,
+  `ten` varchar(30) NOT NULL,
+  `binhluan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `avatar` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `binhluan`
+--
+
+INSERT INTO `binhluan` (`magiay`, `mabinhluan`, `ten`, `binhluan`, `avatar`) VALUES
+(1, 1, 'Trấn Thành', 'Dui dữ!!!', 'upload/no-avatar.png'),
+(1, 2, 'Xuân Dinh', 'Chời má ơi, Đẹppp!!!', 'upload/no-avatar.png'),
+(1, 3, 'Trúc Nhân', 'Gìay gì ngon dữ', 'upload/no-avatar.png'),
+(1, 4, 'Chí Dinh', 'Là lá la, con bướm xinh quá nè!', 'upload/no-avatar.png'),
+(1, 5, 'Văn Mai Hương', 'Đừng ăn thịt chó nha quý dị!', 'upload/no-avatar.png'),
+(1, 6, 'Trường Giang', 'Tiki!   Bấm là có!!', 'upload/no-avatar.png'),
+(1, 7, 'Trúc Nhân', 'Lại là Nhân đây hihi!!', 'upload/no-avatar.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `binhluan.mabinhluan`
+--
+
+CREATE TABLE `binhluan.mabinhluan` (
+  `magiay` int(11) NOT NULL,
+  `mabinhluan` int(11) NOT NULL,
+  `ten` varchar(30) NOT NULL,
+  `binhluan` text NOT NULL,
+  `avatar` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `binhluan.mabinhluan`
+--
+
+INSERT INTO `binhluan.mabinhluan` (`magiay`, `mabinhluan`, `ten`, `binhluan`, `avatar`) VALUES
+(1, 1, 'Alex Phantom', 'Sản phẩm thật là hấp dẫn', 'upload/no-avatar.png'),
+(1, 2, 'Trúc Nhân', 'Sản phẩn kì cục quá hà', 'upload/no-avatar.png'),
+(1, 3, 'Trấn Thành', 'Thiệt là thú dị', 'upload/no-avatar.png'),
+(1, 4, 'Trường giang', 'Tiki, bấm là có', 'upload/no-avatar.png'),
+(1, 5, 'Văn Mai Hương', 'Đừng ăn thịt chó nha', 'upload/no-avatar.png'),
+(1, 6, 'Đặng Xuân Vinh', 'Mang giày này tôi thành gay luôn', 'upload/no-avatar.png'),
+(1, 7, 'Osad', 'Thức tới 3h sáng để mua giày', 'upload/no-avatar.png'),
+(1, 8, 'Trúc Nhân', 'Lại là Nhân đây, hahaha', 'upload/no-avatar.png');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `giaodich`
 --
 
 CREATE TABLE `giaodich` (
   `magiaodich` int(11) NOT NULL,
   `magiay` int(11) NOT NULL,
-  `id` int(11) NOT NULL,
   `soluong` varchar(15) DEFAULT NULL,
-  `thanhtien` int(64) DEFAULT NULL,
-  `ngay` datetime DEFAULT NULL
+  `mahoadon` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `giaodich`
+-- Table structure for table `hoadon`
 --
 
-INSERT INTO `giaodich` (`magiaodich`, `magiay`, `id`, `soluong`, `thanhtien`, `ngay`) VALUES
-(1, 1, 1, '10', 100000, NULL);
+CREATE TABLE `hoadon` (
+  `mahoadon` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `thanhtien` int(64) DEFAULT NULL,
+  `ngaythanhtoan` datetime DEFAULT NULL,
+  `tinhtranggiao` int(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -127,17 +187,20 @@ CREATE TABLE `users` (
   `password` text NOT NULL,
   `name` text,
   `tel` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `stt` int(11) DEFAULT NULL
+  `stt` int(11) DEFAULT NULL,
+  `avatar` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `name`, `tel`, `stt`) VALUES
-(1, 'nodejsacc3@gmail.com', '$2a$10$CFzE0H4WBOogvtnZnf5aQuZ7mV5Pb9oFbPOvKrN1Hjc.e4sTFI8W.', 'Thay giao 3', '1234567981', NULL),
-(2, 'user1@gmail.com', '$2a$10$3c9Ltd18Y3BMxmU/eSOBKO1zyEP9cWDQ0r/x2rHIphrBqTJBfB.aO', 'Vinh Đặng', '0915797703', NULL),
-(3, 'truongvy@gmail.com', '$2a$10$QV4zpWYhAt0yGe9CAwlSBu5bTZuN70oi6pE6goXPzXOeSisg27O32', 'vy dep chai', '012', NULL);
+INSERT INTO `users` (`id`, `email`, `password`, `name`, `tel`, `stt`, `avatar`) VALUES
+(1, 'nodejsacc3@gmail.com', '$2a$10$CFzE0H4WBOogvtnZnf5aQuZ7mV5Pb9oFbPOvKrN1Hjc.e4sTFI8W.', 'Thay giao 3', '1234567981', NULL, ''),
+(2, 'user1@gmail.com', '$2a$10$3c9Ltd18Y3BMxmU/eSOBKO1zyEP9cWDQ0r/x2rHIphrBqTJBfB.aO', 'Đặng Vinh', '915797703', NULL, 'upload/myImage-1578322577668.jpg'),
+(3, 'truongvy@gmail.com', '$2a$10$QV4zpWYhAt0yGe9CAwlSBu5bTZuN70oi6pE6goXPzXOeSisg27O32', 'vy dep chai', '012', NULL, ''),
+(4, 'nodejsacc2@gmail.com', '$2a$10$vIoeK.dLxELZNTt0YDQlp.no2FArfVjqPbpeSG/PSvZ9Xxj7NN0xi', 'Chàng Trai Mua Giày', '01234565675', NULL, ''),
+(5, 'truongvy99413@gmail.com', '$2a$10$ADPVKnnHkmHekbXyzZ85mehh9l2UcsqraR/v3NROFXADLPGh5Bz.u', 'Vỹ', '123456789', NULL, 'upload/vy.jpg');
 
 --
 -- Indexes for dumped tables
@@ -150,12 +213,31 @@ ALTER TABLE `adminUsers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `binhluan`
+--
+ALTER TABLE `binhluan`
+  ADD PRIMARY KEY (`mabinhluan`);
+
+--
+-- Indexes for table `binhluan.mabinhluan`
+--
+ALTER TABLE `binhluan.mabinhluan`
+  ADD PRIMARY KEY (`mabinhluan`);
+
+--
 -- Indexes for table `giaodich`
 --
 ALTER TABLE `giaodich`
   ADD PRIMARY KEY (`magiaodich`),
-  ADD KEY `giaodich_ibfk_1` (`id`),
-  ADD KEY `giaodich_ibfk_2` (`magiay`);
+  ADD KEY `giaodich_shoe` (`magiay`),
+  ADD KEY `giaodich_hoadon` (`mahoadon`);
+
+--
+-- Indexes for table `hoadon`
+--
+ALTER TABLE `hoadon`
+  ADD PRIMARY KEY (`mahoadon`),
+  ADD KEY `hoadon_user` (`id`);
 
 --
 -- Indexes for table `shoe`
@@ -180,10 +262,22 @@ ALTER TABLE `adminUsers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `binhluan`
+--
+ALTER TABLE `binhluan`
+  MODIFY `mabinhluan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `giaodich`
 --
 ALTER TABLE `giaodich`
   MODIFY `magiaodich` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
+
+--
+-- AUTO_INCREMENT for table `hoadon`
+--
+ALTER TABLE `hoadon`
+  MODIFY `mahoadon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
 
 --
 -- AUTO_INCREMENT for table `shoe`
@@ -195,7 +289,7 @@ ALTER TABLE `shoe`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -205,8 +299,14 @@ ALTER TABLE `users`
 -- Constraints for table `giaodich`
 --
 ALTER TABLE `giaodich`
-  ADD CONSTRAINT `giaodich_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `giaodich_ibfk_2` FOREIGN KEY (`magiay`) REFERENCES `shoe` (`magiay`);
+  ADD CONSTRAINT `giaodich_hoadon` FOREIGN KEY (`mahoadon`) REFERENCES `hoadon` (`mahoadon`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `giaodich_shoe` FOREIGN KEY (`magiay`) REFERENCES `shoe` (`magiay`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `hoadon`
+--
+ALTER TABLE `hoadon`
+  ADD CONSTRAINT `hoadon_user` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

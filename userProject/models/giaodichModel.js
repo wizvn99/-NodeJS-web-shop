@@ -5,8 +5,7 @@ exports.loadAll = () => {
 	return db.load(sql);
 }
 
-exports.add = giaoDich => {
-	
-    const sql = `insert into shoe(magiay, id, ngay) VALUES('${giay.magiay}', '${giay.anh}', '${giay.tengiay}', '${giay.soluong}', '${giay.nhanhieu}', '${giay.mau}', ${giay.giacu}, ${giay.giamoi});`;
+exports.add = giaoDich => {	
+    const sql = `insert into giaodich(magiay, mahoadon, soluong) VALUES(${giaoDich.magiay}, ${giaoDich.mahoadon}, ${giaoDich.soluong});`;
     return db.save(sql);
 }
