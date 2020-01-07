@@ -1,140 +1,52 @@
-const accountRepo = require('../models/accountRepo');
-const productRepo = require('../models/productRepo');
-const accountUsersRepo = require('../models/accountUsersRepo');
-const thongke = require('../models/thongke');
-const hoadon = require('../models/hoadonModel');
-const bcrypt = require('bcrypt-nodejs');
+const accountController = require('../controllers/accountController');
+const productController = require('../controllers/productController');
+const hoadonController = require('../controllers/hoadonController');
 
 module.exports = function(router, passport){
 	router.get('/', function(req, res, next) {
 		res.render('admin_login', { message:req.flash('loginMessage')});
 	});
 
-	router.get('/signup', isSuperAdmin, function(req, res){
-		res.render('signup', {message: req.flash('signupMessage')});
-	});
+	router.get('/signup', isSuperAdmin, function(req, res){ accountController.getSignup(req, res) });
 
 	router.get('/index', isLoggedIn, function(req, res, next) {
 		res.render('index', { action: "Điều khiển", user:req.session.user });
 	});
 
 	router.get('/quan_ly_gian_hang', isLoggedIn, function(req, res, next) {
-		productRepo.loadAll().then(rows => {
-			const page = parseInt(req.query.page) || 1;
-			const perPage = 5;
-			let start = (page - 1) * perPage;
-			let end = page * perPage;
-			res.render('quan_ly_gian_hang', { action: "Quản lý gian hàng", user:req.session.user, dsGiay: rows.slice(start, end), curPage: page });	
-		})
+		productController.getCategory(req, res, next);
 	});
-	router.get('/quan_ly_gian_hang/delete/:id', isLoggedIn, function(req, res){
-		productRepo.delete(req.params.id).then(result =>{
-			if (result.affectedRows)
-				res.redirect('/quan_ly_gian_hang');
-		})
-	});
+
+	router.get('/quan_ly_gian_hang/delete/:id', isLoggedIn, function(req, res){ productController.getDelProduct(req, res) });
 	//update san pham
-	router.get('/update', isLoggedIn, function(req, res, next) {
-		productRepo.singleId(req.query.id).then(giay =>{
-			res.render('updateProduct', { action: "Chỉnh sửa sản phẩm", user:req.session.user, giay:giay[0] });
-		})
-	});
+	router.get('/update', isLoggedIn, function(req, res, next) { productController.getUpdateProduct(req, res, next)});
 	//them san pham
-	router.get('/addProduct', isLoggedIn, function(req, res, next) {
-		res.render('addProduct', { action: "Thêm sản phẩm", user:req.session.user, message:req.flash('addProductMessage') });
-	});
+	router.get('/addProduct', isLoggedIn, function(req, res, next) { productController.getAddProduct(req, res, next) });
 
-	router.get('/profile', isLoggedIn, function(req, res, next) {
-	  res.render('profile', { action: "Profile", user:req.session.user });
-	});
 
-	router.get('/quan_ly_admin', isSuperAdmin, function(req, res, next) {
-		accountRepo.loadAll().then(rows => {
-			const page = parseInt(req.query.page) || 1;
-			const perPage = 5;
-			let start = (page - 1) * perPage;
-			let end = page * perPage;
-			res.render('quan_ly_admin', { action: "Quản lý Admin", user:req.session.user, users: rows.slice(start, end), curPage: page });	
-		})
-	});
+	router.get('/profile', isLoggedIn, function(req, res, next) { accountController.getProfile(req, res, next) });
 
-	router.get('/quan_ly_account', isLoggedIn, function(req, res, next) {
-		accountUsersRepo.loadAll().then(rows => {
-			const page = parseInt(req.query.page) || 1;
-			const perPage = 5;
-			let start = (page - 1) * perPage;
-			let end = page * perPage;
-			res.render('quan_ly_account', { action: "Quản lý người dùng", user:req.session.user, users: rows.slice(start, end), curPage: page });	
-		})
-	});
+	router.get('/quan_ly_admin', isSuperAdmin, function(req, res, next) { accountController.getQuanLyAdmin(req, res, next) });
 
-	router.get('/quan_ly_don_hang', isLoggedIn, function(req, res, next) {
-		hoadon.loadAll().then(rows =>{
-			res.render('quan_ly_don_hang', {  action: "Quản lý đơn hàng", user:req.session.user, bills: rows });	
-		})
-	});
+	router.get('/quan_ly_account', isLoggedIn, function(req, res, next) { accountController.getQuanLyAccount(req, res, next )});
 
-	router.get('/thong_ke', isLoggedIn, function(req, res, next) {
-		hoadon.cashByDay().then(result1 =>{
-			hoadon.cashByWeek().then(result2 =>{
-				hoadon.cashByMonth().then(result3 =>{
-					hoadon.cashByYear().then(result4 =>{
-						hoadon.cashByQuarter().then(result5 =>{
-							thongke.top10().then(rows1 =>{
-								thongke.top10Brand().then(rows2 =>{
-									res.render('thong_ke', { action: "Thống kê", user:req.session.user, products: rows1, brands: rows2, perday: result1, perweek: result2, permonth: result3, perquarter: result4, peryear: result5});	
-								})
-							})
-						})
-					})
-				})
-			})
-		})
-	});
+	router.get('/quan_ly_don_hang', isLoggedIn, function(req, res, next) { hoadonController.getQuanLyDonHang(req, res, next) })
 
-	router.get('/chinh_sua_profile', isLoggedIn, function(req, res, next) {
-		res.render('chinh_sua_profile', { action: "Chỉnh sửa profile", user:req.session.user });
-	});
+	router.get('/thong_ke', isLoggedIn, function(req, res, next) { hoadonController.getThongKe(req, res, next) });
 
-	router.get('/logout', function(req, res){
-		req.logout();
-		res.redirect('/');
-	});
+	router.get('/chinh_sua_profile', isLoggedIn, function(req, res, next) { accountController.getChinhSuaProfile(req, res, next) });
 
-	router.get('/quan_ly_account/delete/:id', isLoggedIn, function(req, res){
-		accountUsersRepo.stt(req.params.id).then(result =>{
-			if (result.affectedRows)
-				res.redirect('/quan_ly_account');
-		})
-	});
+	router.get('/logout', function(req, res){ accountController.getLogout(req, res) });
 
-	router.get('/quan_ly_admin/delete/:id', isSuperAdmin, function(req, res){
-		accountRepo.stt(req.params.id).then(result =>{
-			if (result.affectedRows)
-				res.redirect('/quan_ly_admin');
-		})
-	});
+	router.get('/quan_ly_account/delete/:id', isLoggedIn, function(req, res){ accountController.getDelAcc(req, res) });
 
-	router.get('/quan_ly_don_hang/notdely/:id', isLoggedIn, function(req, res){
-		hoadon.checkInNotDeliveryYet(req.params.id).then(result =>{
-			if (result.affectedRows)
-				res.redirect('/quan_ly_don_hang');
-		})
-	});
+	router.get('/quan_ly_admin/delete/:id', isSuperAdmin, function(req, res){ accountController.getDelAdmin(req, res) });
 
-	router.get('/quan_ly_don_hang/delivering/:id', isLoggedIn, function(req, res){
-		hoadon.checkInDelivering(req.params.id).then(result =>{
-			if (result.affectedRows)
-				res.redirect('/quan_ly_don_hang');
-		})
-	});
+	router.get('/quan_ly_don_hang/notdely/:id', isLoggedIn, function(req, res){ hoadonController.getNotDeli(req, res) });
 
-	router.get('/quan_ly_don_hang/deliveried/:id', isLoggedIn, function(req, res){
-		hoadon.checkInDelivery(req.params.id).then(result =>{
-			if (result.affectedRows)
-				res.redirect('/quan_ly_don_hang');
-		})
-	});
+	router.get('/quan_ly_don_hang/delivering/:id', isLoggedIn, function(req, res){ hoadonController.getDelivering(req, res) })
+
+	router.get('/quan_ly_don_hang/deliveried/:id', isLoggedIn, function(req, res){ hoadonController.getDeliveried(req, res) })
 
 	//Post
 
@@ -144,112 +56,23 @@ module.exports = function(router, passport){
 			failureRedirect: '/',
 			failureFlash: true
 		}), 
-		function(req, res) {
-			if(req.body.remember){
-				req.session.cookie.maxAge = 1000 * 60 * 3;
-			}else{
-				req.session.cookie.expires = false;
-			}
-			res.redirect('/');
-		}
+		function(req, res) { accountController.postLogin(req, res) }
 	);
 
-	router.post('/signup', function(req, res){
-		const passwordField = req.param('password');
-		const emailField = req.param('email');
-		const user = {
-			email: emailField,
-			password: bcrypt.hashSync(passwordField, null, null),
-			name: req.param('name'),
-			tel: req.param('tel')
-		};
-		accountRepo.singleEmail(emailField).then(result => {
-			if(passwordField.length < 6)
-			{
-				req.flash('signupMessage', 'Mật khẩu phải chứa ít nhất 6 kí tự');
-				res.redirect('/signup');
-			}
-			if(result.length)
-			{
-				req.flash('signupMessage', 'Email đã tồn tại');
-				res.redirect('/signup');
-			}
-			else{
-					accountRepo.add(user).then(rows => {
-					if (rows.length > 0) 
-					{
-	                	req.session.user=rows[0];
-	                	res.redirect('/quan_ly_account');
-	                }
-	            });
-			};
-		});
-	});
+	router.post('/signup', function(req, res){ accountController.postSignUp(req, res)})
 
-	router.post('/chinh_sua_profile', function(req, res){
-		const user = {
-			id: req.session.user.id,
-			email: req.param('email'),
-			password: bcrypt.hashSync(req.param('password'), null, null),
-			name: req.param('name'),
-			tel: req.param('tel')
-		};
-		accountRepo.update(user).then(value => {
-	        accountRepo.singleId(user.id).then(rows => {
-	            if (rows.length > 0) {
-	                req.session.user=rows[0];
-	                res.redirect('/profile');
-	            }
-	        });
-    	});
-
-	});
+	router.post('/chinh_sua_profile', function(req, res){ accountController.postChinhSuaProfile(req, res) });
 		//PRODUCT
 			//update product
-	router.post('/update', function(req, res, next){
-		const giay = {
-			magiay: req.query.id,
-			anh: req.param('anh'),
-			tengiay: req.param('tengiay'),
-			soluong: req.param('soluong'),
-			nhanhieu: req.param('nhanhieu'),
-			mau: req.param('mau'),
-			giacu: req.param('giacu'),
-			giamoi: req.param('giamoi')
-		};
-		productRepo.update(giay).then(value => {
-	        productRepo.singleId(giay.magiay).then(rows => {
-	            if (rows.length > 0) {
-	                res.redirect('/quan_ly_gian_hang');
-	            }
-	        });
-    	});
-	});
+	router.post('/update', function(req, res, next){ productController.postUpdateProduct(req,res,next) });
 			//add product
-	router.post('/addProduct', function(req, res, next){
-		const giay = {
-			magiay: req.param('magiay'),
-			anh: req.param('anh'),
-			tengiay: req.param('tengiay'),
-			soluong: req.param('soluong'),
-			nhanhieu: req.param('nhanhieu'),
-			mau: req.param('mau'),
-			giacu: req.param('giacu'),
-			giamoi: req.param('giamoi')
-		};
-    	productRepo.singleId(giay.magiay).then(result => {
-			if(result.length)
-			{
-				req.flash('addProductMessage', 'Mã giày đã tồn tại');
-				res.redirect('/addProduct');
-			}
-			else{
-					productRepo.add(giay).then(rows => {
-	                	res.redirect('/quan_ly_gian_hang');
-	            });
-			};
-		});
-	});
+	router.post('/addProduct', function(req, res, next){ productController.postAddProduct(req, res, next) });
+
+	router.get('/changeproductimage', function(req, res, next) { productController.getChangeAvatar(req, res, next) })
+
+	router.post("/previewavatar", function(req, res, next){ productController.postPreviewAvatar(req, res, next) });
+
+	router.post("/changeavatar", function(req, res, next){ productController.postAvatar(req, res, next) });
 }
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated())

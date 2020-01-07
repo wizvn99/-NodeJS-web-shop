@@ -6,7 +6,7 @@ exports.loadAll = () => {
 }
 
 exports.add = user => {
-    var sql = `insert into users(email, password, name, tel) values('${user.email}', '${user.password}', '${user.name}', '${user.tel}');`;
+    var sql = `insert into users(email, password, name, tel, token, active) values('${user.email}', '${user.password}', '${user.name}', '${user.tel}', '${user.token}', ${user.active});`;
     return db.save(sql);
 }
 
@@ -17,6 +17,21 @@ exports.login = user => {
 
 exports.update = user => {
 	var sql=`update users set name='${user.name}' where id=${user.id};`;
+	return db.save(sql);
+}
+
+exports.updateToken = user => {
+	var sql=`update users set token='${user.token}'where id=${user.id};`;
+	return db.save(sql);
+}
+
+exports.updatePassword = user => {
+	var sql=`update users set password='${user.password}' where id=${user.id};`;
+	return db.save(sql);
+}
+
+exports.updateActive = user => {
+	var sql=`update users set active = 1, token="" where id=${user.id};`;
 	return db.save(sql);
 }
 

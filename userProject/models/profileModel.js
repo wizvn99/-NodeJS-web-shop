@@ -41,7 +41,7 @@ exports.update = user => {
 }
 
 exports.singleId = (id) => {
-    var sql = `select * from shoe where magiay=${id};`;
+    var sql = `select * from users where id=${id};`;
     return db.load(sql);
 }
 
