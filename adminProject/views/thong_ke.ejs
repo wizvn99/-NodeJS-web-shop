@@ -12,72 +12,22 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Mã nhà</th>
-							<th>Tên khu nhà</th>
+							<th>Mã giày</th>
+							<th>Tên giày</th>
 							<th>Giá</th>
+							<th>Doanh số</th>
 						</tr>
 					</thead>
 					<tbody>
+						<% for(let i=0; i<products.length; i++) {%>
 						<tr>
-							<td>1</td>
-							<td>Steve</td>
-							<td>Jobs</td>
-							<td>$2.250.000</td>
+							<td><%= i+1 %></td>
+							<td><%= products[i].magiay %></td>
+							<td><%= products[i].tengiay %></td>
+							<td><%= products[i].giamoi %></td>
+							<td><%= products[i].doanhso %></td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>Simon</td>
-							<td>Philips</td>
-							<td>$2.432.000</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>Jane</td>
-							<td>Doe</td>
-							<td>$2.300.000</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>XYZT</td>
-							<td>Doe</td>
-							<td>$1.800.000</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>TVSD</td>
-							<td>Doe</td>
-							<td>$1.500.000</td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td>ÁDAS</td>
-							<td>Zone2</td>
-							<td>$725.000</td>
-						</tr>
-						<tr>
-							<td>7</td>
-							<td>VXCV</td>
-							<td>Zone3</td>
-							<td>$720.000</td>
-						</tr>
-						<tr>
-							<td>8</td>
-							<td>ÁDFASD</td>
-							<td>Zone4</td>
-							<td>$520.000</td>
-						</tr>
-						<tr>
-							<td>9</td>
-							<td>JanÁDFASDe</td>
-							<td>ZOne5</td>
-							<td>$500.000</td>
-						</tr>
-						<tr>
-							<td>10</td>
-							<td>ádf</td>
-							<td>zsd</td>
-							<td>$300.000</td>
-						</tr>
+						<% } %>	
 					</tbody>
 				</table>
 			</div>
@@ -95,8 +45,8 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Mã nhà</th>
-							<th>Tên khu nhà</th>
+							<th>Mã giày</th>
+							<th>Tên giày</th>
 							<th>Giá</th>
 						</tr>
 					</thead>

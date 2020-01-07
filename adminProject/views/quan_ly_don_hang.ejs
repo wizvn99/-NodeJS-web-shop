@@ -11,49 +11,33 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Mã nhà</th>
-					<th>Tên khu</th>
+					<th>Mã hóa đơn</th>
+					<th>Mã người đặt hàng</th>
+					<th>Tên người nhận</th>
 					<th>Giá</th>
 					<th>Ngày &amp; Giờ</th>
 					<th>Tình trạng</th>
 				</tr>
 			</thead>
 			<tbody>
+				<% for(let i=0; i<bills.length; i++) {%>
 				<tr>
-					<td><a href="#">763648</a></td>
-					<td>Steve</td>
-					<td>$122</td>
-					<td>Oct 21, 2016</td>
-					<td><span class="label label-success">Đã giao</span></td>
+					<td><a href="#"><%= bills[i].mahoadon %></a></td>
+					<td><%= bills[i].id %></td>
+					<td><%= bills[i].name %></td>
+					<td>$<%= bills[i].thanhtien %></td>
+					<td><%= bills[i].ngaythanhtoan %></td>
+					<% if(bills[i].tinhtranggiao == 0){ %>
+						<td><span class="label label-warning">Đang giao</span></td>
+					<% } %>
+					<% if(bills[i].tinhtranggiao == 1){ %>
+						<td><span class="label label-success">Đã giao</span></td>
+					<% } %>
+					<% if(bills[i].tinhtranggiao == 2){ %>
+						<td><span class="label label-danger">Chưa giao</span></td>
+					<% } %>
 				</tr>
-				<tr>
-					<td><a href="#">763649</a></td>
-					<td>Amber</td>
-					<td>$62</td>
-					<td>Oct 21, 2016</td>
-					<td><span class="label label-warning">Đang giao</span></td>
-				</tr>
-				<tr>
-					<td><a href="#">763650</a></td>
-					<td>Michael</td>
-					<td>$34</td>
-					<td>Oct 18, 2016</td>
-					<td><span class="label label-danger">Chưa giao</span></td>
-				</tr>
-				<tr>
-					<td><a href="#">763651</a></td>
-					<td>Roger</td>
-					<td>$186</td>
-					<td>Oct 17, 2016</td>
-					<td><span class="label label-success">Đã giao</span></td>
-				</tr>
-				<tr>
-					<td><a href="#">763652</a></td>
-					<td>Smith</td>
-					<td>$362</td>
-					<td>Oct 16, 2016</td>
-					<td><span class="label label-success">Đã giao</span></td>
-				</tr>
+				<% } %>
 			</tbody>
 		</table>
 	</div>

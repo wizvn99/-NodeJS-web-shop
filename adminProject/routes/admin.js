@@ -1,6 +1,7 @@
 const accountRepo = require('../models/accountRepo');
 const productRepo = require('../models/productRepo');
 const accountUsersRepo = require('../models/accountUsersRepo');
+const thongke = require('../models/thongke');
 const bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(router, passport){
@@ -67,15 +68,19 @@ module.exports = function(router, passport){
 	});
 
 	router.get('/quan_ly_don_hang', isLoggedIn, function(req, res, next) {
-	  res.render('quan_ly_don_hang', {  action: "Quản lý đơn hàng", user:req.session.user });
+		thongke.loadBill().then(rows =>{
+			res.render('quan_ly_don_hang', {  action: "Quản lý đơn hàng", user:req.session.user, bills: rows });	
+		})
 	});
 
 	router.get('/thong_ke', isLoggedIn, function(req, res, next) {
-	  res.render('thong_ke', { action: "Thống kê", user:req.session.user });
+		thongke.top10().then(rows =>{
+			res.render('thong_ke', { action: "Thống kê", user:req.session.user, products: rows });	
+		})
 	});
 
 	router.get('/chinh_sua_profile', isLoggedIn, function(req, res, next) {
-	  res.render('chinh_sua_profile', { action: "Chỉnh sửa profile", user:req.session.user });
+		res.render('chinh_sua_profile', { action: "Chỉnh sửa profile", user:req.session.user });
 	});
 
 	router.get('/logout', function(req, res){
