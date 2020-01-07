@@ -200,7 +200,7 @@
                         <li style="float: left; list-style: outside none none;" id="<%=item.magiay%>">
 						<div style="margin-right: 20px;"> 
 							<div class="single-product" >
-								<img   style="width:200px;height:200px;" src="img/product/<%=item.anh%>" alt="">
+								<img   style="width:200px;height:200px;" src="img/product/<%=item.anh%>.jpg" alt="">
 								<div class="product-details">
                                         <h6 >  <%=item.tengiay%></h6>
                                         <div class="price">
@@ -209,7 +209,7 @@
                                         </div>
 									<div class="prd-bottom">
 
-										<a href="/add-to-cart/<%=item.magiay%>" class="social-info">
+										<a href="" class="social-info">
 											<span class="ti-bag"></span>
 											<p class="hover-text">Thêm</p>
 										</a>
@@ -239,16 +239,16 @@
 					      </a>
 					    </li>
 				    	<% if(curpage==1){ %>
-					     <li class="page-item"><a class="page-link" href="/category?page=1&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>">1</a></li>
-					     <li class="page-item"><a class="page-link" href="/category?page=2&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>">2</a></li>
-				    	 <li class="page-item"><a class="page-link" href="/category?page=3&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>">3</a></li>
+					     <li class="page-item"><a class="page-link" href="/search?search=<%=search%>&page=1&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>">1</a></li>
+					     <li class="page-item"><a class="page-link" href="/search?search=<%=search%>&page=2&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>">2</a></li>
+				    	 <li class="page-item"><a class="page-link" href="/search?search=<%=search%>&page=3&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>">3</a></li>
 				    	<% } else{ %>
-				    	 <li class="page-item"><a class="page-link" href="/category?page=<%=curpage - 1%>&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>"><%=curpage - 1%></a></li>
-					     <li class="page-item"><a class="page-link" href="/category?page=<%=curpage%>&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>"><%=curpage%></a></li>
-				    	 <li class="page-item"><a class="page-link" href="/category?page=<%=curpage + 1%>&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>"><%=curpage + 1%></a></li>
+				    	 <li class="page-item"><a class="page-link" href="/search?search=<%=search%>&page=<%=curpage - 1%>&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>"><%=curpage - 1%></a></li>
+					     <li class="page-item"><a class="page-link" href="/search?search=<%=search%>&page=<%=curpage%>&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>"><%=curpage%></a></li>
+				    	 <li class="page-item"><a class="page-link" href="/search?search=<%=search%>&page=<%=curpage + 1%>&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>"><%=curpage + 1%></a></li>
 				    	<% } %>
 				    	<li class="page-item">
-					      <a class="page-link" href="/category?page=<%=curpage + 1%>&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>" aria-label="Next">
+					      <a class="page-link" href="/search?page=<%=curpage + 1%>&brand=<%=brand%>&color=<%=color%>&sortby=<%=sortby%>" aria-label="Next">
 					        <span aria-hidden="true">&raquo;</span>
 					        <span class="sr-only">Next</span>
 					      </a>

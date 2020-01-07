@@ -1,6 +1,7 @@
 var dataconfig = require('../data/db');
 var con = dataconfig.create;
 
+const accountRepo = require('../models/accountRepo');
 var Cart = require('../models/cartModel');
 var Product = require('../models/productModel')
 var HoaDon = require('../models/hoadonModel')
@@ -212,4 +213,24 @@ module.exports.postChitiet = function(req,res){
 		res.redirect('/chitiet' + req.params.id);
 	})
 	
+};
+
+module.exports.postVerify = async function(req, res, next) {
+	const userid = req.query.id;
+	const tokenstring = req.query.token;
+
+	const user = await accountRepo.singleId(userid);
+	
+	console.log(userid);
+	console.log(user[0].token);
+	console.log(tokenstring);
+
+	if(user[0].token == tokenstring) {
+		await accountRepo.updateActive(user[0]);
+		res.render('verify',{msg: "Khích hoạt thành công", logged: false});
+	}
+	else
+	{
+		res.render('verify',{msg: "Khích hoạt thất bại", logged: false});
+	}
 };
