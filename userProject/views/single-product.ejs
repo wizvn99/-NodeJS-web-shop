@@ -99,162 +99,101 @@
 		<div class="container">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item">
-					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+					<a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sản phẩm liên quan</a>
 				</li>
+				
 				<li class="nav-item">
-					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-					aria-selected="false">Đặc điểm</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+					<a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
 					aria-selected="false">Bình luận</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-					aria-selected="false">Nhận xét</a>
-				</li>
+				
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-					<p>Sản phẩm giả định.</p>
-					<p>Sản phẩm không biết khi nào mới bán được.</p>
-				</div>
-				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					<div class="table-responsive">
-						<table class="table">
-							<tbody>
-								<tr>
-									<td>
-										<h5>Rộng</h5>
-									</td>
-									<td>
-										<h5>128mm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Dài</h5>
-									</td>
-									<td>
-										<h5>508mm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Depth</h5>
-									</td>
-									<td>
-										<h5>85mm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Nặng</h5>
-									</td>
-									<td>
-										<h5>52gm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Kiểm tra chất lượng</h5>
-									</td>
-									<td>
-										<h5>Đạt</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Bảo hàng]h</h5>
-									</td>
-									<td>
-										<h5>1 tuần</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Thời gian giao nhận</h5>
-									</td>
-									<td>
-										<h5>Vô hạn</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Quà kèm</h5>
-									</td>
-									<td>
-										<h5>Không</h5>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+					<div class="row">
+						<!-- single product -->
+						<% dataSPLQ.forEach(function(item){%>
+							<!-- single product -->
+							<div class="col-lg-3 col-md-6">
+								<div class="single-product" >
+									<img   style="width:200px;height:200px;" src="img/product/<%=item.anh%>.jpg" alt="">
+									<div class="product-details">
+											<h6 >  <%=item.tengiay%></h6>
+											<div class="price">
+												<h6 ><%=item.giamoi%></h6>
+												<h6 class="l-through">$<%=item.giacu%></h6>
+											</div>
+										<div class="prd-bottom">
+	
+											<a href="/chitiet<%=item.magiay%>" class="social-info">
+												<span class="lnr lnr-move"></span>
+												<p class="hover-text">Xem thêm</p>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% }) %>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+				
+				<div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="comment_list">
+								<% dataBL.forEach(function(item){%>
 								<div class="review_item">
 									<div class="media">
 										<div class="d-flex">
-											<img src="img/product/review-1.png" alt="">
+											<img src="<%=item.avatar%>" style="width: 60px;height:60px ;" alt="">
 										</div>
 										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Trả lời</a>
+											<h4><%=item.ten%></h4>
 										</div>
 									</div>
-									<p>Sản phẩm khá tốt.</p>
+									<p><%=item.binhluan%></p>
 								</div>
-								<div class="review_item reply">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Trả lời</a>
-										</div>
-									</div>
-									<p>Sản phẩm không đạt yêu cầu lắm.</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Trả lời</a>
-										</div>
-									</div>
-									<p>Mua về tôi không mang được.</p>
-								</div>
+								<% }) %>
 							</div>
+							<nav aria-label="Page navigation example" class="nav-custom">
+								<ul class="pagination">
+								  <li class="page-item">
+									<a class="page-link" href="/chitiet<%=data[0].magiay%>?page=<%=curpage - 1%>" aria-label="Previous">
+									  <span aria-hidden="true">&laquo;</span>
+									  <span class="sr-only">Previous</span>
+									</a>
+								  </li>
+								  <% if(curpage==1){ %>
+								   <li class="page-item"><a class="page-link" href="/chitiet<%=data[0].magiay%>?page=1">1</a></li>
+								   <li class="page-item"><a class="page-link" href="/chitiet<%=data[0].magiay%>?page=2">2</a></li>
+								   <li class="page-item"><a class="page-link" href="/chitiet<%=data[0].magiay%>?page=3">3</a></li>
+								  <% } else{ %>
+								   <li class="page-item"><a class="page-link" href="/chitiet<%=data[0].magiay%>?page=<%=curpage - 1%>"><%=curpage - 1%></a></li>
+								   <li class="page-item"><a class="page-link" href="/chitiet<%=data[0].magiay%>?page=<%=curpage%>"><%=curpage%></a></li>
+								   <li class="page-item"><a class="page-link" href="/chitiet<%=data[0].magiay%>?page=<%=curpage + 1%>"><%=curpage + 1%></a></li>
+								  <% } %>
+								  <li class="page-item">
+									<a class="page-link" href="/chitiet<%=data[0].magiay%>?page=<%=curpage + 1%>" aria-label="Next">
+									  <span aria-hidden="true">&raquo;</span>
+									  <span class="sr-only">Next</span>
+									</a>
+								  </li>
+								</ul>
+							  </nav>
 						</div>
+						
+						<% if(logged == false){ %>
 						<div class="col-lg-6">
 							<div class="review_box">
-								<h4>Để lại bình luận của bạn</h4>
-								<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+								<img src="/upload/no-avatar.png" style="width: 60px;height:60px ;" alt=""> 
+								<a style="font-weight: 500;font-size:larger;">Để lại bình luận của bạn</a>
+								<form class="row contact_form" action="/chitiet<%=data[0].magiay%>" method="post" id="contactForm" novalidate="novalidate">
 									<div class="col-md-12">
 										<div class="form-group">
 											<input type="text" class="form-control" id="name" name="name" placeholder="Tên">
 										</div>
 									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="email" class="form-control" id="email" name="email" placeholder="Email">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="number" name="number" placeholder="Số Điện Thoại">
-										</div>
-									</div>
+									
 									<div class="col-md-12">
 										<div class="form-group">
 											<textarea class="form-control" name="message" id="message" rows="1" placeholder="Lời nhắn"></textarea>
@@ -266,127 +205,33 @@
 								</form>
 							</div>
 						</div>
+						<% }else{ %>
+							<div class="col-lg-6">
+								<div class="review_box">
+									<img src="<%=user.avatar%>" style="width: 60px;height:60px ;" alt=""> 
+									<a style="font-weight: 500;font-size:larger;">Để lại bình luận của bạn</a>
+									<form class="row contact_form" action="/chitiet<%=data[0].magiay%>" method="post" id="contactForm" novalidate="novalidate">
+										<div class="col-md-12">
+											<div class="form-group">
+												<a style="font-weight: 500;font-size:large;">Chào:  <%= user.name %></a>
+											</div>
+										</div>
+										
+										<div class="col-md-12">
+											<div class="form-group">
+												<textarea class="form-control" name="message" id="message" rows="1" placeholder="Lời nhắn"></textarea>
+											</div>
+										</div>
+										<div class="col-md-12 text-right">
+											<button type="submit" value="submit" class="btn primary-btn">Bình luận</button>
+										</div>
+									</form>
+								</div>
+							</div>
+							<% } %>
 					</div>
 				</div>
-				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="row total_rate">
-								<div class="col-6">
-									<div class="box_total">
-										<h5>Tổng</h5>
-										<h4>4.0</h4>
-										<h6>(03 nhận xét)</h6>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="rating_list">
-										<h3>3 đánh giá</h3>
-										<ul class="list">
-											<li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="review_list">
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-1.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Sản phẩm khá ổn.</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Sản phẩm khá tốt</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Tôi mua về không mang được.</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="review_box">
-								<h4>Thêm nhận xét</h4>
-								<p>Đánh giá của bạn:</p>
-								<ul class="list">
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-								</ul>
-								<p>Chuẩn</p>
-								<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="name" name="name" placeholder="Tên" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Full name'">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="email" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="number" name="number" placeholder="Số Điện Thoại" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<textarea class="form-control" name="message" id="message" rows="1" placeholder="Nhận xét" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea></textarea>
-										</div>
-									</div>
-									<div class="col-md-12 text-right">
-										<button type="submit" value="submit" class="primary-btn">Gửi</button>
-									</div>
-								</form>
-							</div>
-						</div>
+				
 					</div>
 				</div>
 			</div>

@@ -49,4 +49,5 @@ module.exports = function(router, passport){
 		failureRedirect: '/registration',
 		failureFlash: true
 	}));
+	router.post("/chitiet:id", function(req, res, next){ authControl.postChitiet(req, res, next)});
 };
