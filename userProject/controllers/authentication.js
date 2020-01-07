@@ -282,7 +282,7 @@ module.exports.postForget = async function(req, res, next) {
 		<br/>
 		Yasuo shop gửi bạn link để reset mật khẩu, không nên chia sẻ link cho người khác.
 		<br/><br/>
-		Bấm vào link này để reset mật khẩu: <a href="http://localhost:3000/resetpassword?id=${tokenUser.id}&token=${tokenUser.token}">http://localhost:3000/resetpassword?id=${tokenUser.id}&token=${tokenUser.token}</a>`;
+		Bấm vào link này để reset mật khẩu: <a href="https://shopshoeyasuo.herokuapp.com/resetpassword?id=${tokenUser.id}&token=${tokenUser.token}">https://shopshoeyasuo.herokuapp.com/resetpassword?id=${tokenUser.id}&token=${tokenUser.token}</a>`;
 
 		await mailer.sendmail('nhommuoilam@gmail.com', user[0].email, 'Mail reset mật khẩu (Yasuo Shop)', html);
 
