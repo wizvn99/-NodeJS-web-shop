@@ -106,29 +106,29 @@ module.exports.postUpdateProduct = function(req, res, next){
 }
 
 module.exports.postAddProduct = function(req, res, next){
-		const giay = {
-			magiay: req.param('magiay'),
-			anh: req.param('anh'),
-			tengiay: req.param('tengiay'),
-			soluong: req.param('soluong'),
-			nhanhieu: req.param('nhanhieu'),
-			mau: req.param('mau'),
-			giacu: req.param('giacu'),
-			giamoi: req.param('giamoi')
+	const giay = {
+		magiay: req.param('magiay'),
+		anh: req.param('anh'),
+		tengiay: req.param('tengiay'),
+		soluong: req.param('soluong'),
+		nhanhieu: req.param('nhanhieu'),
+		mau: req.param('mau'),
+		giacu: req.param('giacu'),
+		giamoi: req.param('giamoi')
+	};
+	productRepo.singleId(giay.magiay).then(result => {
+		if(result.length)
+		{
+			req.flash('addProductMessage', 'Mã giày đã tồn tại');
+			res.redirect('/addProduct');
+		}
+		else{
+				productRepo.add(giay).then(rows => {
+                	res.redirect('/quan_ly_gian_hang');
+            });
 		};
-    	productRepo.singleId(giay.magiay).then(result => {
-			if(result.length)
-			{
-				req.flash('addProductMessage', 'Mã giày đã tồn tại');
-				res.redirect('/addProduct');
-			}
-			else{
-					productRepo.add(giay).then(rows => {
-	                	res.redirect('/quan_ly_gian_hang');
-	            });
-			};
-		});
-	}
+	});
+}
 
 module.exports.getChangeAvatar = function(req, res, next) {
 	res.render('changeProductImage',{action: "Thay đổi ảnh sản phẩm", user:req.session.user});

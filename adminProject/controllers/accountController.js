@@ -23,7 +23,7 @@ module.exports.getQuanLyAdmin = function(req, res, next) {
 		let end = page * perPage;
 		res.render('quan_ly_admin', { action: "Quản lý Admin", user:req.session.user, users: rows.slice(start, end), curPage: page });	
 	})
-});
+}
 
 module.exports.getQuanLyAccount = function(req, res, next) {
 	accountUsersRepo.loadAll().then(rows => {
@@ -102,7 +102,7 @@ module.exports.postSignUp = function(req, res){
             });
 		};
 	});
-});
+}
 
 module.exports.postLogin = function(req, res) {
 	if(req.body.remember){
