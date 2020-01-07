@@ -20,6 +20,16 @@ exports.update = user => {
 	return db.save(sql);
 }
 
+exports.updateToken = user => {
+	var sql=`update users set token='${user.token}'where id=${user.id};`;
+	return db.save(sql);
+}
+
+exports.updatePassword = user => {
+	var sql=`update users set password='${user.password}' where id=${user.id};`;
+	return db.save(sql);
+}
+
 exports.updateActive = user => {
 	var sql=`update users set active = 1, token="" where id=${user.id};`;
 	return db.save(sql);

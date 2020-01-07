@@ -1,7 +1,10 @@
+const randomstring = require('randomstring');
+const bcrypt = require('bcrypt-nodejs');
 var dataconfig = require('../data/db');
 var con = dataconfig.create;
 
 const accountRepo = require('../models/accountRepo');
+const mailer = require('../models/mailer');
 var Cart = require('../models/cartModel');
 var Product = require('../models/productModel')
 var HoaDon = require('../models/hoadonModel')
@@ -100,7 +103,27 @@ module.exports.getContact = function(req, res, next) {
 };
 
 module.exports.getForget = function(req, res, next) {
-	res.render('forgetPassword');
+	res.render("forgetPassword", { logged: false  });
+};
+
+module.exports.getResetPassword = async function(req, res, next) {
+	const userid = req.query.id;
+	const tokenstring = req.query.token;
+
+	const user = await accountRepo.singleId(userid);
+	
+	console.log(userid);
+	console.log(user[0].token);
+	console.log(tokenstring);
+
+	if(user[0].token == tokenstring) {
+		await accountRepo.updateActive(user[0]);
+		res.render("resetpassword", { logged: false, rels: 'success', id: userid });
+	}
+	else
+	{
+		res.render("resetpassword", { logged: false, rels: 'fail'  });
+	}
 };
 
 module.exports.getConfirmation = function(req, res, next) {
@@ -234,3 +257,51 @@ module.exports.postVerify = async function(req, res, next) {
 		res.render('verify',{msg: "Khích hoạt thất bại", logged: false});
 	}
 };
+
+module.exports.postForget = async function(req, res, next) {
+	const useremail = req.param('email');
+	console.log(useremail);
+	const user = await accountRepo.singleEmail(useremail);
+	console.log(user[0]);
+	if(user[0].active == 0)
+	{
+		res.render('forgetPassword',{msg: "Tài khoản này chưa khích hoạt", logged: false});
+	}
+	else
+	{
+		const secrettoken = randomstring.generate(); 
+
+		const tokenUser = {
+			id: user[0].id,
+			token: secrettoken
+		}
+
+		await accountRepo.updateToken(tokenUser);
+
+		const html = `Xin chào,
+		<br/>
+		Yasuo shop gửi bạn link để reset mật khẩu, không nên chia sẻ link cho người khác.
+		<br/><br/>
+		Bấm vào link này để reset mật khẩu: <a href="http://localhost:3000/resetpassword?id=${tokenUser.id}&token=${tokenUser.token}">http://localhost:3000/resetpassword?id=${tokenUser.id}&token=${tokenUser.token}</a>`;
+
+		await mailer.sendmail('nhommuoilam@gmail.com', user[0].email, 'Mail reset mật khẩu (Yasuo Shop)', html);
+
+		res.render('forgetPassword',{msg: "Đã gửi mail reset mật khẩu đến địa chỉ email", logged: false});
+	}
+};
+
+module.exports.postResetPassword = async function(req, res, next) {
+	const userid = req.query.id;
+	const newpassword = req.param('newpassword');
+
+	console.log(userid);
+	console.log(newpassword);
+
+	const passwordBundle = {
+		id: userid,
+		password: bcrypt.hashSync(newpassword, null, null)
+	}
+
+	await accountRepo.updatePassword(passwordBundle);
+	res.render('resetpassword',{ rels: 'done', logged: false});
+}

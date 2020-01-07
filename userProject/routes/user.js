@@ -37,6 +37,8 @@ module.exports = function(router, passport){
 
 	router.get('/forgetPassword', function(req, res, next){ authControl.getForget(req, res, next) });
 
+	router.get('/resetpassword', function(req, res, next){ authControl.getResetPassword(req, res, next) });
+
 	router.get('/confirmation', function(req, res, next){ authControl.getConfirmation(req, res, next) });
 
 	router.get('/login', function(req, res, next){ authControl.getLogin(req, res, next) });
@@ -75,5 +77,10 @@ module.exports = function(router, passport){
 
 	router.post("/updatepassword", function(req, res, next){ profileControl.postUpdatePassword(req, res, next) });
 
+	router.post('/forgetPassword', function(req, res, next){ authControl.postForget(req, res, next) });
+
 	router.get("/verify", function(req, res, next){ authControl.postVerify(req, res, next) });
+
+	router.post('/resetpassword', function(req, res, next){ authControl.postResetPassword(req, res, next) });
+
 };
