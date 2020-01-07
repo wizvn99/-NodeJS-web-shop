@@ -2,6 +2,7 @@ const accountRepo = require('../models/accountRepo');
 const productRepo = require('../models/productRepo');
 const accountUsersRepo = require('../models/accountUsersRepo');
 const thongke = require('../models/thongke');
+const hoadon = require('../models/hoadonModel');
 const bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(router, passport){
@@ -68,14 +69,26 @@ module.exports = function(router, passport){
 	});
 
 	router.get('/quan_ly_don_hang', isLoggedIn, function(req, res, next) {
-		thongke.loadBill().then(rows =>{
+		hoadon.loadAll().then(rows =>{
 			res.render('quan_ly_don_hang', {  action: "Quản lý đơn hàng", user:req.session.user, bills: rows });	
 		})
 	});
 
 	router.get('/thong_ke', isLoggedIn, function(req, res, next) {
-		thongke.top10().then(rows =>{
-			res.render('thong_ke', { action: "Thống kê", user:req.session.user, products: rows });	
+		hoadon.cashByDay().then(result1 =>{
+			hoadon.cashByWeek().then(result2 =>{
+				hoadon.cashByMonth().then(result3 =>{
+					hoadon.cashByYear().then(result4 =>{
+						hoadon.cashByQuarter().then(result5 =>{
+							thongke.top10().then(rows1 =>{
+								thongke.top10Brand().then(rows2 =>{
+									res.render('thong_ke', { action: "Thống kê", user:req.session.user, products: rows1, brands: rows2, perday: result1, perweek: result2, permonth: result3, perquarter: result4, peryear: result5});	
+								})
+							})
+						})
+					})
+				})
+			})
 		})
 	});
 
@@ -102,7 +115,26 @@ module.exports = function(router, passport){
 		})
 	});
 
+	router.get('/quan_ly_don_hang/notdely/:id', isLoggedIn, function(req, res){
+		hoadon.checkInNotDeliveryYet(req.params.id).then(result =>{
+			if (result.affectedRows)
+				res.redirect('/quan_ly_don_hang');
+		})
+	});
 
+	router.get('/quan_ly_don_hang/delivering/:id', isLoggedIn, function(req, res){
+		hoadon.checkInDelivering(req.params.id).then(result =>{
+			if (result.affectedRows)
+				res.redirect('/quan_ly_don_hang');
+		})
+	});
+
+	router.get('/quan_ly_don_hang/deliveried/:id', isLoggedIn, function(req, res){
+		hoadon.checkInDelivery(req.params.id).then(result =>{
+			if (result.affectedRows)
+				res.redirect('/quan_ly_don_hang');
+		})
+	});
 
 	//Post
 

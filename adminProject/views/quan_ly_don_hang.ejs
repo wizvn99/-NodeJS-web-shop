@@ -17,6 +17,7 @@
 					<th>Giá</th>
 					<th>Ngày &amp; Giờ</th>
 					<th>Tình trạng</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,12 +30,42 @@
 					<td><%= bills[i].ngaythanhtoan %></td>
 					<% if(bills[i].tinhtranggiao == 0){ %>
 						<td><span class="label label-warning">Đang giao</span></td>
+						<td><div class="btn-group">
+							<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Hành động
+							</button>
+							<div class="dropdown-menu">
+								<div><a class="dropdown-item btn btn-success" href="/quan_ly_don_hang/deliveried/<%= bills[i].mahoadon %>">Đã giao</a></div>
+								<div><a class="dropdown-item btn btn-danger" href="/quan_ly_don_hang/notdely/<%= bills[i].mahoadon %>">Chưa giao</a>
+							</div>
+						</div>
+						</td>
 					<% } %>
 					<% if(bills[i].tinhtranggiao == 1){ %>
-						<td><span class="label label-success">Đã giao</span></td>
+						<td><span class="label label-success">Đã giao</span></td>						
+						<td><div class="btn-group">
+							<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Hành động
+							</button>
+							<div class="dropdown-menu">
+								<div><a class="dropdown-item btn btn-warning" href="/quan_ly_don_hang/delivering/<%= bills[i].mahoadon %>">Đang giao</a></div>
+								<div><a class="dropdown-item btn btn-danger" href="/quan_ly_don_hang/notdely/<%= bills[i].mahoadon %>">Chưa giao</a>
+							</div>
+						</div>
+						</td>
 					<% } %>
 					<% if(bills[i].tinhtranggiao == 2){ %>
 						<td><span class="label label-danger">Chưa giao</span></td>
+						<td><div class="btn-group">
+							<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Hành động
+							</button>
+							<div class="dropdown-menu">
+								<div><a class="dropdown-item btn btn-success" href="/quan_ly_don_hang/deliveried/<%= bills[i].mahoadon %>">Đã giao</a></div>
+								<div><a class="dropdown-item btn btn-warning" href="/quan_ly_don_hang/delivering/<%= bills[i].mahoadon %>">Đang giao</a>
+							</div>
+						</div>
+						</td>
 					<% } %>
 				</tr>
 				<% } %>
