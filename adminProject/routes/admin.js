@@ -2,6 +2,7 @@ const accountRepo = require('../models/accountRepo');
 const productRepo = require('../models/productRepo');
 const accountUsersRepo = require('../models/accountUsersRepo');
 const thongke = require('../models/thongke');
+const productController = require('../controller/productController');
 const bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(router, passport){
@@ -18,14 +19,16 @@ module.exports = function(router, passport){
 	});
 
 	router.get('/quan_ly_gian_hang', isLoggedIn, function(req, res, next) {
-		productRepo.loadAll().then(rows => {
-			const page = parseInt(req.query.page) || 1;
-			const perPage = 5;
-			let start = (page - 1) * perPage;
-			let end = page * perPage;
-			res.render('quan_ly_gian_hang', { action: "Quản lý gian hàng", user:req.session.user, dsGiay: rows.slice(start, end), curPage: page });	
-		})
+		// productRepo.loadAll().then(rows => {
+		// 	const page = parseInt(req.query.page) || 1;
+		// 	const perPage = 5;
+		// 	let start = (page - 1) * perPage;
+		// 	let end = page * perPage;
+		// 	res.render('quan_ly_gian_hang', { action: "Quản lý gian hàng", user:req.session.user, dsGiay: rows.slice(start, end), curPage: page, brand: "none", color: "none" });	
+		// })
+		productController.getCategory(req, res, next);
 	});
+
 	router.get('/quan_ly_gian_hang/delete/:id', isLoggedIn, function(req, res){
 		productRepo.delete(req.params.id).then(result =>{
 			if (result.affectedRows)
@@ -40,7 +43,7 @@ module.exports = function(router, passport){
 	});
 	//them san pham
 	router.get('/addProduct', isLoggedIn, function(req, res, next) {
-		res.render('addProduct', { action: "Thêm sản phẩm", user:req.session.user, message:req.flash('addProductMessage') });
+		res.render('addProduct', { action: "Thêm sản phẩm", user:req.session.user, message:req.flash('addProductMessage'), file: '' });
 	});
 
 	router.get('/profile', isLoggedIn, function(req, res, next) {
@@ -218,6 +221,14 @@ module.exports = function(router, passport){
 			};
 		});
 	});
+
+	router.get('/changeproductimage', function(req, res, next) {
+		res.render('changeProductImage',{action: "Thay đổi ảnh sản phẩm", user:req.session.user});
+	})
+
+	router.post("/previewavatar", function(req, res, next){ productController.postPreviewAvatar(req, res, next) });
+
+	router.post("/changeavatar", function(req, res, next){ productController.postAvatar(req, res, next) });
 }
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated())
