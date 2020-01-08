@@ -24,6 +24,9 @@ module.exports = function(router, passport){
 	router.get('/addProduct', isLoggedIn, function(req, res, next) { productController.getAddProduct(req, res, next) });
 
 
+
+	router.get("/user_profile:id", isLoggedIn, function(req, res, next){ accountController.getuserprofile(req, res, next) });
+
 	router.get('/profile', isLoggedIn, function(req, res, next) { accountController.getProfile(req, res, next) });
 
 	router.get('/quan_ly_admin', isSuperAdmin, function(req, res, next) { accountController.getQuanLyAdmin(req, res, next) });

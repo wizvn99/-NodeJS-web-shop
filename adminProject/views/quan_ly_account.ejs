@@ -21,8 +21,8 @@
 			<tbody>
 			<% for(var i=0; i<users.length; i++) {%>
 				<tr>
-					<td><a href="#"><%= users[i].id %></a></td>
-					<td><%= users[i].email %></td>
+					<td><a href="/user_profile<%= users[i].id %>"><%= users[i].id %></a></td>
+					<td><a href="/user_profile<%= users[i].id %>"><%= users[i].email %></a></td>
 					<td><%= users[i].name %></td>
 
 					<% if(users[i].stt == 0){ %>

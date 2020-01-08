@@ -14,3 +14,7 @@ exports.checkInDelivery = id => {
 	const sql=`update hoadon set tinhtranggiao=1 where mahoadon=${id};`;
 	return db.save(sql);
 }
+exports.history = id =>{
+	const sql=`select * from giaodich as gd join hoadon as hd on gd.mahoadon = hd.mahoadon where id=${id};`;
+	return db.load(sql);
+}

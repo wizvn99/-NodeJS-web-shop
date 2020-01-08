@@ -24,7 +24,7 @@
 							<td><%= i+1 %></td>
 							<td><%= products[i].magiay %></td>
 							<td><%= products[i].tengiay %></td>
-							<td><%= products[i].giamoi %></td>
+							<td>$<%= products[i].giamoi %></td>
 							<td><%= products[i].doanhso %></td>
 						</tr>
 						<% } %>	
@@ -84,7 +84,7 @@
 						<% for(let i=0; i<perday.length; i++) {%>
 						<tr>
 							<td><%= perday[i].ngay %></td>
-							<td><%= perday[i].tien %></td>
+							<td>$<%= perday[i].tien %></td>
 						</tr>
 						<% } %>	
 					</tbody>
@@ -113,7 +113,7 @@
 						<tr>
 							<td><%= permonth[i].thang %></td>
 							<td><%= permonth[i].nam %></td>
-							<td><%= permonth[i].tien %></td>
+							<td>$<%= permonth[i].tien %></td>
 						</tr>
 						<% } %>	
 					</tbody>
@@ -140,7 +140,7 @@
 						<% for(let i=0; i<peryear.length; i++) {%>
 						<tr>
 							<td><%= peryear[i].nam %></td>
-							<td><%= peryear[i].tien %></td>
+							<td>$<%= peryear[i].tien %></td>
 						</tr>
 						<% } %>	
 					</tbody>
@@ -172,7 +172,7 @@
 						<tr>
 							<td><%= perweek[i].tuan %></td>
 							<td><%= perweek[i].nam %></td>
-							<td><%= perweek[i].tien %></td>
+							<td>$<%= perweek[i].tien %></td>
 						</tr>
 						<% } %>	
 					</tbody>
@@ -201,7 +201,7 @@
 						<tr>
 							<td><%= perquarter[i].quy %></td>
 							<td><%= perquarter[i].nam %></td>
-							<td><%= perquarter[i].tien %></td>
+							<td>$<%= perquarter[i].tien %></td>
 						</tr>
 						<% } %>	
 					</tbody>

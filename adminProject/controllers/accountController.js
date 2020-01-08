@@ -15,6 +15,12 @@ module.exports.getChinhSuaProfile = function(req, res, next) {
 	res.render('chinh_sua_profile', { action: "Chỉnh sửa profile", user:req.session.user });
 }
 
+module.exports.getuserprofile = function(req, res, next) {
+	accountUsersRepo.singleId(req.params.id).then(rows =>{
+		res.render('userprofile', { action: "Profile người dùng", user:rows[0] });
+	})
+}
+
 module.exports.getQuanLyAdmin = function(req, res, next) {
 	accountRepo.loadAll().then(rows => {
 		const page = parseInt(req.query.page) || 1;

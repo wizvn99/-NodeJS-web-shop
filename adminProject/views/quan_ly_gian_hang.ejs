@@ -1,5 +1,13 @@
 <%- include('header'); -%>
-
+<style type="text/css">
+	#menu li {
+  display: inline-block;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  margin-left: -5px;
+}
+</style>
 
 <div class="panel">
 	<div class="panel-heading">
@@ -31,8 +39,8 @@
 					<td><%= dsGiay[i].soluong %></td>
 					<td><%= dsGiay[i].nhanhieu %></td>
 					<td><%= dsGiay[i].mau %></td>
-					<td><%= dsGiay[i].giacu %></td>
-					<td><%= dsGiay[i].giamoi %></td>
+					<td>$<%= dsGiay[i].giacu %></td>
+					<td>$<%= dsGiay[i].giamoi %></td>
 					<td><a href="/update?id=<%= dsGiay[i].magiay %>">Sửa</a></td>
 					<td><a href="/quan_ly_gian_hang/delete/<%= dsGiay[i].magiay %>" onClick="return confirm('Bạn chắc chắn muốn xóa?')">Xóa</a></td>
 				</tr>
@@ -72,7 +80,7 @@
 	</div>
 	<div class="panel-body no-padding">
 		<form action="/quan_ly_gian_hang" method="GET">
-			<div class="common-filter">
+			<div class="common-filter" id="menu">
 				<div class="head text-primary" style="margin-left: 30px"><h2>Nhãn hiệu</h2></div>
 				<ul>
 					<% if(brand=="none"){ %>
@@ -112,7 +120,7 @@
 					<% } %>
 				</ul>
 			</div>
-			<div class="common-filter">
+			<div class="common-filter" id="menu">
 				<div class="head text-primary" style="margin-left: 30px"><h2>Màu</h2></div>
 				<ul>
 					<% if(color=="none"){ %>

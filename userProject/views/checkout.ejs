@@ -52,6 +52,7 @@
 
     <!--================Checkout Area =================-->
     <section class="checkout_area section_gap">
+        <% if(products){ %>
         <div class="container">
             <div class="cupon_area">
                 <div class="check_title">
@@ -95,14 +96,14 @@
                             <h2>Đơn hàng của bạn</h2>
                             <ul class="list">
                                 <li><a href="#">Sản phẩm <span>Giá</span></a></li>
-                                <li><a href="#">Fresh Blackberry <span class="middle">x 02</span> <span class="last">$720.00</span></a></li>
-                                <li><a href="#">Fresh Tomatoes <span class="middle">x 02</span> <span class="last">$720.00</span></a></li>
-                                <li><a href="#">Fresh Brocoli <span class="middle">x 02</span> <span class="last">$720.00</span></a></li>
+                                <% products.forEach(function(product){%>
+                                <li><a href="#"><%=product.item.tengiay%> <span class="middle">x <%=product.qty%></span> <span class="last">$<%=product.item.giamoi * product.qty%></span></a></li>
+                                <% }) %>
                             </ul>
                             <ul class="list list_2">
-                                <li><a href="#">Tổng  <span>$2160.00</span></a></li>
-                                <li><a href="#">Phí ship <span>Flat rate: $50.00</span></a></li>
-                                <li><a href="#">Tổng tiền <span>$2210.00</span></a></li>
+                                <li><a href="#">Tổng  <span>$<%= totalPrice %></span></a></li>
+                                <li><a href="#">Phí ship <span>Flat rate: $0.00</span></a></li>
+                                <li><a href="#">Tổng tiền <span>$<%= totalPrice %></span></a></li>
                             </ul>
                             <div class="payment_item">
                                 <div class="radion_btn">
@@ -122,7 +123,7 @@
                             <div class="creat_account">
                                 <input type="checkbox" id="f-option4" name="selector">
                                 <label for="f-option4">Tôi đã đọc và chấp nhận </label>
-                                <a href="#">điều khoản & thoả thuận*</a>
+                                <a href="#">điều khoản &amp; thoả thuận*</a>
                             </div>
                             
                         </div>
@@ -130,6 +131,11 @@
                 </div>
             </div>
         </div>
+        <% }else{ %>
+        <div class="container">
+            <h2>Không có sản phẩm nào trong giỏ hàng.</h2>
+        </div>
+        <% } %>
     </section>
     <!--================End Checkout Area =================-->
 

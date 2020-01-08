@@ -48,7 +48,7 @@ module.exports = function(passport)
 						<br/>
 						Yasuo shop cảm ơn bạn vì đã đăng kí trên web của shop!
 						<br/><br/>
-						Bấm vào link này để kích hoạt tài khoản: <a href="https://shopshoeyasuo.herokuapp.com/verify?id=${newUserMysql.id}&token=${newUserMysql.token}">https://shopshoeyasuo.herokuapp.com/verify?id=${newUserMysql.id}&token=${newUserMysql.token}</a>`;
+						Bấm vào link này để kích hoạt tài khoản: <a href="http://localhost:3000/verify?id=${newUserMysql.id}&token=${newUserMysql.token}">http://localhost:3000/verify?id=${newUserMysql.id}&token=${newUserMysql.token}</a>`;
 
 						await mailer.sendmail('nhommuoilam@gmail.com', newUserMysql.email, 'Mail xác nhận (Yasuo Shop)', html);
 
