@@ -32,8 +32,8 @@ module.exports.getThongKe = function(req, res, next) {
 	hoadon.cashByDay().then(result1 =>{
 		hoadon.cashByWeek().then(result2 =>{
 			hoadon.cashByMonth().then(result3 =>{
-				hoadon.cashByYear().then(result4 =>{
-					hoadon.cashByQuarter().then(result5 =>{
+				hoadon.cashByQuarter().then(result4 =>{
+					hoadon.cashByYear().then(result5 =>{
 						thongke.top10().then(rows1 =>{
 							thongke.top10Brand().then(rows2 =>{
 								res.render('thong_ke', { action: "Thống kê", user:req.session.user, products: rows1, brands: rows2, perday: result1, perweek: result2, permonth: result3, perquarter: result4, peryear: result5});	

@@ -107,6 +107,7 @@ module.exports.postSignUp = function(req, res){
                 }
             });
 		};
+		res.redirect('/quan_ly_account')
 	});
 }
 

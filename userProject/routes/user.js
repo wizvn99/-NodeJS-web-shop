@@ -57,7 +57,7 @@ module.exports = function(router, passport){
 
 	router.post('/login', passport.authenticate('local-login', 
 		{
-			successRedirect: '/confirmation',
+			successRedirect: '/checkout',
 			failureRedirect: '/login',
 			failureFlash: true
 		}), function(req, res) { authControl.postLogin(req, res) });

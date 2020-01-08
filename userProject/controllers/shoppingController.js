@@ -45,11 +45,8 @@ module.exports.getHistory =function(req, res, next) {
 module.exports.getConfirmation = function(req, res, next) {
 	if(req.isAuthenticated())
 	{
-		if(!req.session.cart)
-		{
-	    	res.render("confirmation", { user:req.user, logged: true, products: null  });
-	    }
 	    let cart = new Cart(req.session.cart);
+	    req.session.cart = null
 	    res.render("confirmation", { user:req.user, logged: true, products: cart.generateArray(), totalPrice: cart.totalPrice });
 	}
 	res.redirect('/login');
@@ -109,7 +106,6 @@ module.exports.postCheckout = function(req, res, next) {
 				.catch(error => console.log(error.message))
 			}
 			console.log("Đặt hàng thành công!")
-			req.session.cart = null
 			res.redirect('/confirmation')
 		}).catch(error => console.log(error.message))
 	}

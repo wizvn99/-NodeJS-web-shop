@@ -19,7 +19,3 @@ exports.top10Brand = () => {
 	const sql = `SELECT shoe.nhanhieu, count(DISTINCT giaodich.soluong) as doanhso FROM giaodich JOIN shoe ON giaodich.magiay = shoe.magiay GROUP BY shoe.nhanhieu ORDER BY doanhso DESC LIMIT 10`
 	return db.load(sql)
 }
-
-exports.monthlyStatistics = () => {
-
-}
